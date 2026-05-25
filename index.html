@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chef Specials AI</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sidebar" aria-label="Cuisine selection">
+        <div class="brand">
+          <span class="brand-mark">CS</span>
+          <div>
+            <h1>Chef Specials AI</h1>
+            <p>Upscale dinner specials for service.</p>
+          </div>
+        </div>
+
+        <section class="panel">
+          <div class="section-title">Cuisine</div>
+          <div id="cuisineList" class="choice-list"></div>
+        </section>
+
+        <section class="panel">
+          <div class="section-title">Saved Specials</div>
+          <div id="savedList" class="saved-list empty-state">No saved specials yet.</div>
+        </section>
+      </aside>
+
+      <section class="workspace">
+        <header class="topbar">
+          <div>
+            <h2>Generate upscale dinner specials by cuisine, cost, and kitchen style.</h2>
+            <p>Built for chefs who need polished specials, practical recipes, and fast menu math.</p>
+          </div>
+          <button id="createBtn" class="primary-action" type="button">
+            <span aria-hidden="true">+</span>
+            Create Tonight's Specials
+          </button>
+        </header>
+
+        <section class="generator-grid" id="generator">
+          <div class="request-panel">
+            <div class="section-title">Service Brief</div>
+            <label for="chefRequest">What kind of specials do you need tonight?</label>
+            <textarea id="chefRequest" rows="5">Give me three upscale dinner specials for tonight.</textarea>
+
+            <div class="filter-wrap" aria-label="Optional filters">
+              <button class="filter active" type="button" data-filter="Seasonal">Seasonal</button>
+              <button class="filter" type="button" data-filter="Seafood">Seafood</button>
+              <button class="filter" type="button" data-filter="Meat">Meat</button>
+              <button class="filter" type="button" data-filter="Vegetarian">Vegetarian</button>
+              <button class="filter" type="button" data-filter="Pasta">Pasta</button>
+              <button class="filter" type="button" data-filter="Poultry">Poultry</button>
+              <button class="filter" type="button" data-filter="Low food cost">Low food cost</button>
+              <button class="filter" type="button" data-filter="Premium special">Premium special</button>
+            </div>
+
+            <div class="action-row">
+              <button id="generateBtn" class="generate-btn" type="button">
+                <span aria-hidden="true">✦</span>
+                Generate Specials
+              </button>
+              <button id="regenerateBtn" class="secondary-action" type="button">Regenerate</button>
+            </div>
+
+            <div class="agent-note">
+              <strong>Agent mode:</strong> Uses a chef/menu consultant prompt with cuisine patterns, seasonal cues, cost estimates, and original dish composition. Web-research hooks are ready for a backend model.
+            </div>
+          </div>
+
+          <div class="output-panel">
+            <div class="section-heading">
+              <div>
+                <div class="section-title">Dinner Specials</div>
+                <h3 id="specialsHeading">Greek ideas for tonight</h3>
+              </div>
+              <span id="generationMeta" class="meta-pill">3 specials</span>
+            </div>
+            <div id="specialsList" class="specials-list"></div>
+          </div>
+        </section>
+
+        <section class="recipe-panel" id="recipePanel" aria-live="polite">
+          <div class="recipe-empty">
+            <h3>Select a special to build the chef-ready recipe.</h3>
+            <p>The full recipe will include yield, ingredients, preparation, plating, cost, price, pairing, and an image prompt.</p>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
