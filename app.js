@@ -240,6 +240,36 @@ function buildRecipe(special) {
   };
 }
 
+function buildMarketingKit(special) {
+  const hashtags = [
+    `#${special.cuisine}Cuisine`.replace(/\s/g, ""),
+    "#DinnerSpecial",
+    "#ChefSpecial",
+    "#RestaurantLife",
+    "#TonightOnly",
+    "#FoodPhotography"
+  ];
+
+  return {
+    instagram: `Tonight's ${special.cuisine} special: ${special.name}. ${special.caption} Limited portions for dinner service tonight.`,
+    facebook: `Fresh from the kitchen tonight: ${special.name}. ${special.caption} Pair it with ${special.pairing.split(",")[0]} for a polished dinner pairing.`,
+    menuBoard: `${special.name} — ${special.caption}`,
+    chefNote: `Built for tonight's service: ${special.why}`,
+    hashtags: hashtags.join(" "),
+    postTime: "Best post window: 3:30-5:30 PM for dinner reservations, or 7:30 PM for same-night table interest."
+  };
+}
+
+function imageStatusMarkup(special) {
+  if (special.imageLoading) {
+    return `<div class="image-status active">Generating a professional plated photo. This can take a moment...</div>`;
+  }
+  if (special.imageMessage) {
+    return `<div class="image-status">${special.imageMessage}</div>`;
+  }
+  return `<div class="image-status">No photo has been generated yet. Click Generate Professional Photo to create the finished dish image.</div>`;
+}
+
 function renderCuisineChoices() {
   cuisineList.innerHTML = cuisines.map((cuisine) => `
     <button class="choice-btn ${cuisine === selectedCuisine ? "active" : ""}" type="button" data-cuisine="${cuisine}">
@@ -270,7 +300,8 @@ function generateSpecials() {
     ...special,
     id: `${selectedCuisine}-${Date.now()}-${index}`,
     cuisine: selectedCuisine,
-    recipe: buildRecipe(special)
+    recipe: buildRecipe(special),
+    marketing: buildMarketingKit({ ...special, cuisine: selectedCuisine })
   }));
   selectedSpecial = null;
   renderSpecials();
@@ -295,7 +326,7 @@ function renderSpecials() {
         <p class="why-line"><strong>Why it works:</strong> ${special.why}</p>
         <div class="card-actions">
           <button class="card-action" type="button" data-recipe="${special.id}">View Full Recipe</button>
-          <button class="card-action" type="button" data-image="${special.id}">Generate Dish Image</button>
+          <button class="card-action" type="button" data-image="${special.id}">Open Marketing Kit</button>
         </div>
       </div>
     </article>
@@ -313,6 +344,7 @@ function renderRecipeEmpty() {
 
 function renderRecipe(special) {
   selectedSpecial = special;
+  special.marketing = special.marketing || buildMarketingKit(special);
   recipePanel.innerHTML = `
     <div class="recipe-header">
       <div>
@@ -323,6 +355,42 @@ function renderRecipe(special) {
       <div class="recipe-actions">
         <button class="recipe-action" type="button" data-save="${special.id}">Save Special</button>
         <button class="recipe-action" type="button" data-print>Print Recipe</button>
+      </div>
+    </div>
+    <div class="marketing-kit">
+      <div class="marketing-image-card">
+        <div class="section-title">Marketing Kit</div>
+        <div class="generated-image-frame">
+          ${special.generatedImageUrl ? `<img src="${special.generatedImageUrl}" alt="Generated plated image for ${special.name}">` : `
+            <div class="photo-empty-state">
+              <div class="photo-frame-icon" aria-hidden="true">
+                <span></span>
+              </div>
+              <strong>No generated photo yet</strong>
+              <span>The finished food image will appear here after OpenAI image generation is connected and run.</span>
+            </div>
+          `}
+        </div>
+        ${imageStatusMarkup(special)}
+        <div class="card-actions">
+          <button class="card-action photo-action" type="button" data-generate-openai="${special.id}">Generate Professional Photo</button>
+          ${special.generatedImageUrl ? `<a class="card-action link-action" href="${special.generatedImageUrl}" download="${special.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}.png">Download Image</a>` : ""}
+        </div>
+      </div>
+      <div class="marketing-copy-card">
+        <div class="section-title">Social Copy</div>
+        <h4>Ready-to-post caption</h4>
+        <p class="social-caption">${special.marketing.instagram}</p>
+        <p class="hashtag-line">${special.marketing.hashtags}</p>
+        <div class="copy-grid">
+          <div><span>Menu board</span><strong>${special.marketing.menuBoard}</strong></div>
+          <div><span>Chef note</span><strong>${special.marketing.chefNote}</strong></div>
+          <div><span>Post timing</span><strong>${special.marketing.postTime}</strong></div>
+        </div>
+        <div class="card-actions">
+          <button class="card-action" type="button" data-copy-caption="${special.id}">Copy Instagram Caption</button>
+          <button class="card-action" type="button" data-copy-facebook="${special.id}">Copy Facebook Caption</button>
+        </div>
       </div>
     </div>
     <div class="recipe-body">
@@ -354,9 +422,13 @@ function renderRecipe(special) {
         <h4>Wine or Drink Pairing</h4>
         <p>${special.pairing}</p>
       </div>
-      <div class="recipe-block">
-        <h4>Image Prompt</h4>
-        <p class="image-prompt">${special.recipe.imagePrompt}</p>
+      <div class="recipe-block prompt-fallback">
+        <h4>Prompt fallback</h4>
+        <p>Use this only if the photo generator is not configured yet.</p>
+        <details>
+          <summary>Show image prompt</summary>
+          <p class="image-prompt">${special.revisedPrompt || special.recipe.imagePrompt}</p>
+        </details>
       </div>
     </div>
   `;
@@ -367,6 +439,46 @@ function showImagePrompt(special) {
   renderRecipe(special);
   const prompt = recipePanel.querySelector(".image-prompt");
   prompt.closest(".recipe-block").style.borderColor = "var(--copper)";
+}
+
+async function generateDishImage(special) {
+  if (!special) return;
+  special.imageLoading = true;
+  special.imageMessage = "";
+  renderRecipe(special);
+
+  try {
+    const response = await fetch("/api/generate-image", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        dishName: special.name,
+        cuisine: special.cuisine,
+        caption: special.caption,
+        ingredients: special.ingredients,
+        plating: special.recipe.plating,
+        prompt: special.recipe.imagePrompt,
+        format: "square"
+      })
+    });
+    const payload = await response.json();
+
+    special.imageLoading = false;
+    if (payload.imageUrl) {
+      special.generatedImageUrl = payload.imageUrl;
+      special.revisedPrompt = payload.revisedPrompt;
+      special.imageMessage = "Image generated. Ready for a square social post.";
+    } else if (payload.setupNeeded) {
+      special.imageMessage = payload.message;
+    } else {
+      special.imageMessage = payload.error || "Image generation was not completed.";
+    }
+  } catch (error) {
+    special.imageLoading = false;
+    special.imageMessage = error.message || "Image generation failed.";
+  }
+
+  renderRecipe(special);
 }
 
 function getSaved() {
@@ -449,11 +561,28 @@ function bindEvents() {
       renderRecipe(currentSpecials.find((special) => special.id === recipeButton.dataset.recipe));
     }
     if (imageButton) {
-      showImagePrompt(currentSpecials.find((special) => special.id === imageButton.dataset.image));
+      const special = currentSpecials.find((item) => item.id === imageButton.dataset.image);
+      renderRecipe(special);
+      recipePanel.querySelector(".marketing-kit")?.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   });
 
   recipePanel.addEventListener("click", (event) => {
+    const imageButton = event.target.closest("[data-generate-openai]");
+    const copyInstagramButton = event.target.closest("[data-copy-caption]");
+    const copyFacebookButton = event.target.closest("[data-copy-facebook]");
+
+    if (imageButton && selectedSpecial) {
+      generateDishImage(selectedSpecial);
+    }
+    if (copyInstagramButton && selectedSpecial) {
+      navigator.clipboard?.writeText(`${selectedSpecial.marketing.instagram}\n\n${selectedSpecial.marketing.hashtags}`);
+      copyInstagramButton.textContent = "Copied";
+    }
+    if (copyFacebookButton && selectedSpecial) {
+      navigator.clipboard?.writeText(selectedSpecial.marketing.facebook);
+      copyFacebookButton.textContent = "Copied";
+    }
     if (event.target.closest("[data-print]")) {
       window.print();
     }

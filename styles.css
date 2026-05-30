@@ -236,6 +236,23 @@ button {
   background: #fff;
 }
 
+.premium-action {
+  border-color: rgba(182, 106, 60, 0.38);
+  color: #fff;
+  background: var(--copper);
+}
+
+.photo-action {
+  width: 100%;
+  min-height: 48px;
+  color: #fff;
+  background: var(--green);
+}
+
+.link-action {
+  text-decoration: none;
+}
+
 .generator-grid {
   display: grid;
   grid-template-columns: minmax(320px, 0.75fr) minmax(420px, 1.25fr);
@@ -415,6 +432,161 @@ textarea:focus {
   gap: 8px;
 }
 
+.marketing-kit {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.82fr) minmax(420px, 1.18fr);
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.marketing-image-card,
+.marketing-copy-card {
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.generated-image-frame {
+  display: grid;
+  min-height: 320px;
+  overflow: hidden;
+  place-items: center;
+  border-radius: 8px;
+  background: #111817;
+}
+
+.generated-image-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.photo-empty-state {
+  display: grid;
+  width: 100%;
+  min-height: 320px;
+  align-content: center;
+  justify-items: center;
+  gap: 12px;
+  padding: 24px;
+  color: #f8f6ee;
+  text-align: center;
+}
+
+.photo-frame-icon {
+  position: relative;
+  width: 156px;
+  aspect-ratio: 1;
+  border: 2px dashed rgba(248, 246, 238, 0.44);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(248, 246, 238, 0.09), rgba(248, 246, 238, 0.02));
+}
+
+.photo-frame-icon::before,
+.photo-frame-icon::after,
+.photo-frame-icon span {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+}
+
+.photo-frame-icon::before {
+  width: 48px;
+  height: 48px;
+  top: 34px;
+  left: 52px;
+  border: 8px solid rgba(248, 246, 238, 0.78);
+}
+
+.photo-frame-icon::after {
+  width: 24px;
+  height: 24px;
+  right: 26px;
+  top: 25px;
+  background: rgba(200, 155, 69, 0.9);
+}
+
+.photo-frame-icon span {
+  width: 94px;
+  height: 18px;
+  left: 31px;
+  bottom: 30px;
+  background: rgba(47, 111, 85, 0.95);
+}
+
+.photo-empty-state strong {
+  font-size: 20px;
+}
+
+.photo-empty-state span {
+  max-width: 290px;
+  color: rgba(248, 246, 238, 0.72);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.image-status {
+  margin: 12px 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: var(--muted);
+  background: #f6f5ef;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.image-status.active {
+  color: var(--green-dark);
+  background: #e8f0e9;
+}
+
+.marketing-copy-card h4 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.social-caption,
+.hashtag-line {
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.hashtag-line {
+  color: var(--green-dark);
+  font-weight: 800;
+}
+
+.copy-grid {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.copy-grid div {
+  padding: 12px;
+  border-radius: 8px;
+  background: var(--subtle);
+}
+
+.copy-grid span {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--copper);
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.copy-grid strong {
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
 .recipe-panel {
   min-height: 300px;
 }
@@ -494,11 +666,38 @@ textarea:focus {
   user-select: all;
 }
 
+.prompt-fallback details {
+  margin-top: 10px;
+}
+
+.prompt-fallback summary {
+  cursor: pointer;
+  color: var(--green-dark);
+  font-weight: 800;
+}
+
+.prompt-fallback .image-prompt {
+  margin-top: 10px;
+}
+
 @media (max-width: 1050px) {
   .app-shell,
   .generator-grid,
+  .marketing-kit,
   .recipe-body {
     grid-template-columns: 1fr;
+  }
+
+  .recipe-header {
+    grid-template-columns: 1fr;
+  }
+
+  .recipe-actions {
+    width: 100%;
+  }
+
+  .recipe-actions .recipe-action {
+    flex: 1 1 180px;
   }
 
   .sidebar {
