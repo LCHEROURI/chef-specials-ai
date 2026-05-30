@@ -163,11 +163,91 @@ const sourceDishes = {
   ]
 };
 
+const specialParts = {
+  Greek: {
+    proteins: [
+      { name: "branzino", category: "seafood", cost: 13.2 },
+      { name: "dayboat scallops", category: "seafood", cost: 14.4 },
+      { name: "lamb loin", category: "meat", cost: 12.8 },
+      { name: "chicken souvlaki", category: "poultry", cost: 6.9 },
+      { name: "crispy halloumi", category: "vegetarian", cost: 4.8 },
+      { name: "cauliflower steak", category: "vegetarian", cost: 4.2 }
+    ],
+    techniques: ["Seared", "Charred", "Herb-Roasted", "Grilled", "Olive-Oil Poached"],
+    bases: ["lemon-oregano potatoes", "smoked eggplant puree", "orzo pilaf", "warm gigante beans", "fennel and cucumber salad"],
+    sauces: ["whipped feta", "tomato ouzo butter", "mint yogurt", "caper-raisin relish", "saffron avgolemono"],
+    garnishes: ["pistachio dukkah", "dill oil", "Kalamata olive crumbs", "charred lemon", "crispy oregano"],
+    pairings: ["Assyrtiko, dry rose, or a cucumber-mint gin spritz.", "Xinomavro, pilsner, or rosemary lemonade.", "Moschofilero, sparkling wine, or a citrus tonic."]
+  },
+  French: {
+    proteins: [
+      { name: "duck breast", category: "poultry", cost: 13.8 },
+      { name: "halibut", category: "seafood", cost: 14.6 },
+      { name: "sea scallops", category: "seafood", cost: 13.9 },
+      { name: "steak frites cut", category: "meat", cost: 16.5 },
+      { name: "wild mushroom tart", category: "vegetarian", cost: 5.9 },
+      { name: "cauliflower pave", category: "vegetarian", cost: 4.6 }
+    ],
+    techniques: ["Pan-Roasted", "Brown-Butter Basted", "Confit", "Herb-Crusted", "Sear-Roasted"],
+    bases: ["potato pave", "celery root puree", "lentils du Puy", "truffle pommes puree", "frisee and apple salad"],
+    sauces: ["cherry gastrique", "cognac cream", "sauce verte", "black pepper bordelaise", "lemon caper beurre noisette"],
+    garnishes: ["fried shallots", "fines herbes", "pickled mustard seed", "hazelnut crumbs", "crispy leeks"],
+    pairings: ["Pinot Noir, Beaujolais Cru, or dry cider.", "Chablis, Sancerre, or a French 75.", "White Burgundy, Champagne, or a vermouth spritz."]
+  },
+  American: {
+    proteins: [
+      { name: "ribeye", category: "meat", cost: 18.4 },
+      { name: "short rib", category: "meat", cost: 11.6 },
+      { name: "sea scallops", category: "seafood", cost: 13.4 },
+      { name: "airline chicken", category: "poultry", cost: 7.4 },
+      { name: "blackened salmon", category: "seafood", cost: 10.9 },
+      { name: "squash steak", category: "vegetarian", cost: 4.7 }
+    ],
+    techniques: ["Coffee-Rubbed", "Bourbon-Glazed", "Wood-Grilled", "Cast-Iron Seared", "Maple-Miso Roasted"],
+    bases: ["crispy fingerlings", "sweet corn puree", "smoked cheddar grits", "Brussels slaw", "buttermilk mashed potatoes"],
+    sauces: ["bourbon shallot butter", "bacon jam", "peppercorn jus", "apple cider gastrique", "charred scallion ranch"],
+    garnishes: ["pickled peppers", "crispy onions", "micro celery", "toasted pecans", "hot honey drizzle"],
+    pairings: ["Cabernet Sauvignon, rye Old Fashioned, or porter.", "Chardonnay, sparkling wine, or a corn-silk sour.", "Viognier, amber ale, or a maple whiskey highball."]
+  },
+  Chinese: {
+    proteins: [
+      { name: "tea-smoked duck", category: "poultry", cost: 12.7 },
+      { name: "steamed cod", category: "seafood", cost: 10.9 },
+      { name: "five-spice short rib", category: "meat", cost: 11.8 },
+      { name: "Sichuan prawns", category: "seafood", cost: 12.4 },
+      { name: "mapo eggplant", category: "vegetarian", cost: 4.5 },
+      { name: "crispy tofu", category: "vegetarian", cost: 3.9 }
+    ],
+    techniques: ["Wok-Seared", "Ginger-Steamed", "Tea-Smoked", "Red-Braised", "Chili-Lacquered"],
+    bases: ["garlic jasmine rice", "scallion pancake", "silken tofu", "charred bok choy", "sesame noodles"],
+    sauces: ["plum hoisin", "black vinegar jus", "ginger-scallion oil", "mala chili crisp", "Shaoxing soy glaze"],
+    garnishes: ["pickled cucumber", "toasted sesame", "fried garlic", "cilantro stems", "crispy shallots"],
+    pairings: ["Riesling, sake, or sparkling jasmine tea.", "Pinot Noir, jasmine tea highball, or lager.", "Malbec, baijiu cocktail, or dark lager."]
+  },
+  Italian: {
+    proteins: [
+      { name: "lobster", category: "seafood", cost: 15.8 },
+      { name: "veal scaloppine", category: "meat", cost: 12.5 },
+      { name: "wild boar ragu", category: "meat", cost: 10.8 },
+      { name: "branzino", category: "seafood", cost: 13.4 },
+      { name: "delicata squash", category: "vegetarian", cost: 4.8 },
+      { name: "porcini mushroom", category: "vegetarian", cost: 6.2 }
+    ],
+    techniques: ["Calabrian Chili", "Brown-Butter", "Sage-Roasted", "Marsala-Glazed", "Preserved-Lemon"],
+    bases: ["squid ink tagliolini", "creamy polenta", "saffron risotto", "charred broccolini", "hand-cut pappardelle"],
+    sauces: ["white wine butter", "Taleggio fonduta", "tomato conserva", "Marsala jus", "basil pistou"],
+    garnishes: ["fried sage", "toasted hazelnut", "preserved lemon", "Parmesan frico", "Calabrian breadcrumbs"],
+    pairings: ["Vermentino, Franciacorta, or a bitter citrus spritz.", "Chianti Classico, Barbera, or an amaro spritz.", "Soave Classico, orange wine, or a nonalcoholic pear shrub."]
+  }
+};
+
 let selectedCuisine = "Greek";
 let activeFilters = new Set(["Seasonal"]);
 let currentSpecials = [];
 let selectedSpecial = null;
 let memorySavedSpecials = [];
+let generationCounter = 0;
+let recentSpecialNames = [];
 
 const cuisineList = document.querySelector("#cuisineList");
 const savedList = document.querySelector("#savedList");
@@ -183,6 +263,73 @@ function money(value) {
 
 function margin(cost, price) {
   return `${Math.round(((price - cost) / price) * 100)}%`;
+}
+
+function randomItem(items) {
+  return items[Math.floor(Math.random() * items.length)];
+}
+
+function titleCase(text) {
+  return text.replace(/\b\w/g, (char) => char.toUpperCase());
+}
+
+function desiredCategory(request) {
+  if (activeFilters.has("Seafood") || request.includes("seafood") || request.includes("fish")) return "seafood";
+  if (activeFilters.has("Vegetarian") || request.includes("vegetarian") || request.includes("vegetable")) return "vegetarian";
+  if (activeFilters.has("Poultry") || request.includes("chicken") || request.includes("poultry")) return "poultry";
+  if (activeFilters.has("Meat") || request.includes("meat") || request.includes("steak") || request.includes("beef") || request.includes("lamb")) return "meat";
+  return "";
+}
+
+function buildGeneratedSpecial(cuisine, request, usedNames) {
+  const parts = specialParts[cuisine];
+  const category = desiredCategory(request);
+  let proteins = category ? parts.proteins.filter((protein) => protein.category === category) : [...parts.proteins];
+
+  if (activeFilters.has("Low food cost")) {
+    proteins = proteins.sort((a, b) => a.cost - b.cost).slice(0, 3);
+  } else if (activeFilters.has("Premium special")) {
+    proteins = proteins.sort((a, b) => b.cost - a.cost).slice(0, 3);
+  }
+
+  if (!proteins.length) proteins = [...parts.proteins];
+
+  for (let attempt = 0; attempt < 16; attempt += 1) {
+    const protein = randomItem(proteins);
+    const technique = randomItem(parts.techniques);
+    const base = randomItem(parts.bases);
+    const sauce = randomItem(parts.sauces);
+    const garnish = randomItem(parts.garnishes);
+    const name = `${technique} ${titleCase(protein.name)} with ${titleCase(base)}, ${titleCase(sauce)}, and ${titleCase(garnish)}`;
+
+    if (usedNames.has(name) || recentSpecialNames.includes(name)) continue;
+
+    const cost = Number((protein.cost + 1.8 + Math.random() * 2.8).toFixed(2));
+    const multiplier = activeFilters.has("Low food cost") ? 3.8 : activeFilters.has("Premium special") ? 3.15 : 3.35;
+    const price = Math.ceil((cost * multiplier + 4) / 2) * 2 - 1;
+
+    return {
+      name,
+      caption: `${titleCase(protein.name)} prepared ${technique.toLowerCase()} and served with ${base}, ${sauce}, ${garnish}, and a polished ${cuisine.toLowerCase()} dinner-service finish.`,
+      ingredients: [
+        titleCase(protein.name),
+        titleCase(base),
+        titleCase(sauce),
+        titleCase(garnish),
+        "Fresh herbs",
+        "Citrus",
+        "Olive oil",
+        "Finishing salt"
+      ],
+      cost,
+      price,
+      overview: `${technique} the ${protein.name} to order, hold the ${base} warm, and finish the plate with ${sauce} and ${garnish}.`,
+      why: `Fresh ${category || protein.category} direction with practical prep, clear menu language, and a margin-conscious ${cuisine.toLowerCase()} profile.`,
+      pairing: randomItem(parts.pairings)
+    };
+  }
+
+  return randomItem(sourceDishes[cuisine]);
 }
 
 function measuredIngredient(ingredient, index) {
@@ -282,27 +429,22 @@ function renderCuisineChoices() {
 function generateSpecials() {
   const request = chefRequest.value.toLowerCase();
   const count = request.includes("two") || request.includes("2") ? 2 : 3;
-  let pool = [...sourceDishes[selectedCuisine]];
+  const usedNames = new Set();
+  generationCounter += 1;
 
-  if (activeFilters.has("Low food cost")) {
-    pool.sort((a, b) => a.cost - b.cost);
-  } else if (activeFilters.has("Premium special")) {
-    pool.sort((a, b) => b.price - a.price);
-  } else if (request.includes("seafood")) {
-    pool.sort((a) => /branzino|halibut|scallop|cod|lobster|fish/i.test(a.name) ? -1 : 1);
-  } else if (request.includes("vegetarian")) {
-    pool.sort((a) => /carrot|mushroom|risotto/i.test(a.name) ? -1 : 1);
-  } else {
-    pool = pool.sort(() => Math.random() - 0.5);
-  }
-
-  currentSpecials = pool.slice(0, count).map((special, index) => ({
+  currentSpecials = Array.from({ length: count }, () => {
+    const special = buildGeneratedSpecial(selectedCuisine, request, usedNames);
+    usedNames.add(special.name);
+    return special;
+  }).map((special, index) => ({
     ...special,
-    id: `${selectedCuisine}-${Date.now()}-${index}`,
+    id: `${selectedCuisine}-${Date.now()}-${generationCounter}-${index}`,
     cuisine: selectedCuisine,
     recipe: buildRecipe(special),
     marketing: buildMarketingKit({ ...special, cuisine: selectedCuisine })
   }));
+
+  recentSpecialNames = [...currentSpecials.map((special) => special.name), ...recentSpecialNames].slice(0, 18);
   selectedSpecial = null;
   renderSpecials();
   renderRecipeEmpty();
