@@ -461,17 +461,21 @@ async function generateDishImage(special) {
         format: "square"
       })
     });
-    const payload = await response.json();
+    const payload = await response.json().catch(() => ({
+      error: "The image service returned an unreadable response."
+    }));
 
     special.imageLoading = false;
-    if (payload.imageUrl) {
+    if (response.ok && payload.imageUrl) {
       special.generatedImageUrl = payload.imageUrl;
       special.revisedPrompt = payload.revisedPrompt;
-      special.imageMessage = "Image generated. Ready for a square social post.";
+      special.imageMessage = `Image generated with ${payload.model || "OpenAI"}. Ready for a square social post.`;
     } else if (payload.setupNeeded) {
       special.imageMessage = payload.message;
     } else {
-      special.imageMessage = payload.error || "Image generation was not completed.";
+      special.imageMessage = payload.error
+        ? `Image generation was not completed: ${payload.error}`
+        : "Image generation was not completed.";
     }
   } catch (error) {
     special.imageLoading = false;

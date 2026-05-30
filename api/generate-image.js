@@ -1,17 +1,29 @@
-const OPENAI_IMAGE_MODEL = process.env.OPENAI_IMAGE_MODEL || "gpt-image-1.5";
+const OPENAI_IMAGE_MODEL = process.env.OPENAI_IMAGE_MODEL || "gpt-image-2";
+const OPENAI_IMAGE_QUALITY = process.env.OPENAI_IMAGE_QUALITY || "medium";
+
+function sendJson(response, status, payload) {
+  response.setHeader("Content-Type", "application/json");
+  response.status(status).json(payload);
+}
+
+function userFacingOpenAIError(payload) {
+  const message = payload?.error?.message || payload?.message;
+  if (!message) return "OpenAI image generation failed.";
+  return message;
+}
 
 module.exports = async function handler(request, response) {
   if (request.method !== "POST") {
     response.setHeader("Allow", "POST");
-    response.status(405).json({ error: "Method not allowed" });
+    sendJson(response, 405, { error: "Method not allowed" });
     return;
   }
 
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
-    response.status(200).json({
+    sendJson(response, 200, {
       setupNeeded: true,
-      message: "Photo generation is not connected yet. Add OPENAI_API_KEY to Vercel Production, redeploy, then run Generate Professional Photo again."
+      message: "OpenAI image generation is ready, but OPENAI_API_KEY is not configured in this Vercel project. Add it to chef-specials-ai for Production, then redeploy."
     });
     return;
   }
@@ -40,30 +52,39 @@ module.exports = async function handler(request, response) {
         model: OPENAI_IMAGE_MODEL,
         prompt: imagePrompt,
         size,
-        quality: "high",
-        output_format: "png"
+        quality: OPENAI_IMAGE_QUALITY
       })
     });
 
-    const payload = await openaiResponse.json();
+    const payload = await openaiResponse.json().catch(() => ({}));
     if (!openaiResponse.ok) {
-      response.status(openaiResponse.status).json({
-        error: payload.error?.message || "OpenAI image generation failed."
+      sendJson(response, openaiResponse.status, {
+        error: userFacingOpenAIError(payload),
+        model: OPENAI_IMAGE_MODEL
       });
       return;
     }
 
-    const b64 = payload.data?.[0]?.b64_json;
-    if (!b64) {
-      response.status(502).json({ error: "OpenAI returned no image data." });
+    const image = payload.data?.[0];
+    const b64 = image?.b64_json;
+    const url = image?.url;
+    if (!b64 && !url) {
+      sendJson(response, 502, {
+        error: "OpenAI returned no image data.",
+        model: OPENAI_IMAGE_MODEL
+      });
       return;
     }
 
-    response.status(200).json({
-      imageUrl: `data:image/png;base64,${b64}`,
-      revisedPrompt: payload.data?.[0]?.revised_prompt || imagePrompt
+    sendJson(response, 200, {
+      imageUrl: b64 ? `data:image/png;base64,${b64}` : url,
+      revisedPrompt: image?.revised_prompt || imagePrompt,
+      model: OPENAI_IMAGE_MODEL
     });
   } catch (error) {
-    response.status(500).json({ error: error.message || "Unexpected image generation error." });
+    sendJson(response, 500, {
+      error: error.message || "Unexpected image generation error.",
+      model: OPENAI_IMAGE_MODEL
+    });
   }
 };

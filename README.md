@@ -15,4 +15,14 @@ Live app: https://chef-specials-ai.vercel.app/
 
 This app is linked to the Vercel project `chef-specials-ai`.
 
-Image generation requires `OPENAI_API_KEY` in Vercel production environment variables. The optional `OPENAI_IMAGE_MODEL` variable defaults to `gpt-image-1.5`.
+Image generation requires `OPENAI_API_KEY` in this exact Vercel project:
+
+1. Open Vercel project `chef-specials-ai`.
+2. Go to Settings -> Environment Variables.
+3. Add `OPENAI_API_KEY` for Production.
+4. Redeploy the production deployment so the serverless function can read it.
+
+Optional variables:
+
+- `OPENAI_IMAGE_MODEL` defaults to `gpt-image-2`.
+- `OPENAI_IMAGE_QUALITY` defaults to `medium`.
