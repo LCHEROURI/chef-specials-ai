@@ -15,7 +15,7 @@ Live app: https://chef-specials-ai.vercel.app/
 
 This app is linked to the Vercel project `chef-specials-ai`.
 
-Image generation requires `OPENAI_API_KEY` in this exact Vercel project:
+Image generation requires `OPENAI_API_KEY` in this exact Vercel project. The deployed route also accepts the existing `chefsspecials` variable name for compatibility.
 
 1. Open Vercel project `chef-specials-ai`.
 2. Go to Settings -> Environment Variables.

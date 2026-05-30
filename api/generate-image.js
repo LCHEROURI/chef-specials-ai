@@ -19,11 +19,11 @@ module.exports = async function handler(request, response) {
     return;
   }
 
-  const apiKey = process.env.OPENAI_API_KEY;
+  const apiKey = process.env.OPENAI_API_KEY || process.env.chefsspecials;
   if (!apiKey) {
     sendJson(response, 200, {
       setupNeeded: true,
-      message: "OpenAI image generation is ready, but OPENAI_API_KEY is not configured in this Vercel project. Add it to chef-specials-ai for Production, then redeploy."
+      message: "OpenAI image generation is ready, but the OpenAI key is not configured in this Vercel project. Add OPENAI_API_KEY to chef-specials-ai for Production, then redeploy."
     });
     return;
   }
