@@ -1,4 +1,5 @@
 .vercel
+.vercel-cli-home/
 .superpowers/
 .worktrees/
 node_modules/
