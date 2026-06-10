@@ -21,6 +21,7 @@ import {
   updatePromptFlags
 } from "./prompt-api";
 import { promptKeys } from "./prompt-keys";
+import { VersionHistory } from "./versions/VersionHistory";
 
 export function PromptDetail() {
   const { promptId = "" } = useParams();
@@ -164,21 +165,7 @@ export function PromptDetail() {
             </button>
           </section>
 
-          <section className="editor-card">
-            <h2>Version history</h2>
-            {versionsQuery.data?.length ? (
-              <ol className="version-list">
-                {versionsQuery.data.map((version) => (
-                  <li key={version.id}>
-                    <strong>Version {version.version_number}</strong>
-                    <span>{version.change_notes || "Prompt content updated"}</span>
-                  </li>
-                ))}
-              </ol>
-            ) : (
-              <p className="muted-copy">No versions available yet.</p>
-            )}
-          </section>
+          <VersionHistory prompt={prompt} versions={versionsQuery.data ?? []} />
         </aside>
       </div>
     </section>

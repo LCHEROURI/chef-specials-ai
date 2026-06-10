@@ -9,6 +9,11 @@ import { Input } from "../../components/ui/Input";
 import { LoadingState } from "../../components/ui/LoadingState";
 import { useToast } from "../../components/ui/toast-context";
 import { getPrompt, savePrompt } from "./prompt-api";
+import {
+  getPromptOrganization,
+  syncPromptOrganization
+} from "./organization-api";
+import { OrganizationPicker } from "./OrganizationPicker";
 import { promptKeys } from "./prompt-keys";
 import {
   defaultPromptValues,
@@ -61,6 +66,11 @@ export function PromptEditor() {
     queryFn: () => getPrompt(promptId!),
     queryKey: promptKeys.detail(promptId ?? "")
   });
+  const organizationQuery = useQuery({
+    enabled: isEditing,
+    queryFn: () => getPromptOrganization(promptId!),
+    queryKey: [...promptKeys.detail(promptId ?? ""), "organization"]
+  });
   const {
     control,
     formState: { errors },
@@ -73,7 +83,9 @@ export function PromptEditor() {
     resolver: zodResolver(promptSchema)
   });
   const favorite = useWatch({ control, name: "favorite" });
+  const folderIds = useWatch({ control, name: "folderIds" });
   const rating = useWatch({ control, name: "rating" });
+  const tagIds = useWatch({ control, name: "tagIds" });
 
   useEffect(() => {
     if (!promptQuery.data) return;
@@ -83,16 +95,21 @@ export function PromptEditor() {
       category: promptQuery.data.category,
       description: promptQuery.data.description,
       favorite: promptQuery.data.favorite,
+      folderIds: organizationQuery.data?.folderIds ?? [],
       promptText: promptQuery.data.prompt_text,
       rating: promptQuery.data.rating,
       status: promptQuery.data.status,
+      tagIds: organizationQuery.data?.tagIds ?? [],
       title: promptQuery.data.title
     });
-  }, [promptQuery.data, reset]);
+  }, [organizationQuery.data, promptQuery.data, reset]);
 
   const mutation = useMutation({
-    mutationFn: (values: PromptFormValues) =>
-      savePrompt(promptId ?? null, values),
+    mutationFn: async (values: PromptFormValues) => {
+      const prompt = await savePrompt(promptId ?? null, values);
+      await syncPromptOrganization(prompt.id, values.folderIds, values.tagIds);
+      return prompt;
+    },
     onSuccess: async (prompt) => {
       await queryClient.invalidateQueries({ queryKey: promptKeys.all });
       notify(isEditing ? "Prompt updated" : "Prompt saved");
@@ -222,6 +239,12 @@ export function PromptEditor() {
                 ))}
               </select>
             </label>
+            <OrganizationPicker
+              folderIds={folderIds}
+              onFoldersChange={(ids) => setValue("folderIds", ids)}
+              onTagsChange={(ids) => setValue("tagIds", ids)}
+              tagIds={tagIds}
+            />
           </div>
 
           <button
