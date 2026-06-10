@@ -3,6 +3,7 @@ import type { Database } from "../../types/database";
 import type { PromptFormValues } from "./prompt-schema";
 
 export type Prompt = Database["public"]["Tables"]["prompts"]["Row"];
+export type EditablePrompt = Omit<Prompt, "search_document">;
 export type PromptVersion =
   Database["public"]["Tables"]["prompt_versions"]["Row"];
 type SavePromptArgs =
@@ -62,8 +63,8 @@ export async function getPromptVersions(promptId: string) {
 }
 
 export async function updatePromptFlags(
-  prompt: Prompt,
-  updates: Pick<Prompt, "favorite" | "status">
+  prompt: EditablePrompt,
+  updates: Pick<EditablePrompt, "favorite" | "status">
 ) {
   return savePrompt(prompt.id, {
     aiPlatform: prompt.ai_platform,

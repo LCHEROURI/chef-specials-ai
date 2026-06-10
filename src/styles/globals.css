@@ -360,6 +360,14 @@ h3 {
   gap: 14px;
 }
 
+.library-controls {
+  padding-top: 24px;
+}
+
+.library-search--wide {
+  width: 100%;
+}
+
 .library-search {
   display: flex;
   min-height: 46px;
@@ -404,7 +412,9 @@ h3 {
 }
 
 .library-filters button,
-.view-switcher button {
+.view-switcher button,
+.library-filters select,
+.library-view-options > select {
   min-height: 40px;
   padding: 0 13px;
   border: 1px solid transparent;
@@ -416,10 +426,22 @@ h3 {
 
 .library-filters button:hover,
 .view-switcher button:hover,
-.view-switcher .is-active {
+.view-switcher .is-active,
+.library-filters .is-active {
   border-color: var(--border);
   color: var(--primary);
   background: var(--primary-soft);
+}
+
+.library-filters select,
+.library-view-options > select {
+  border-color: var(--border);
+  background: var(--surface-strong);
+}
+
+.library-view-options {
+  display: flex;
+  gap: 10px;
 }
 
 .view-switcher button {
@@ -448,6 +470,164 @@ h3 {
 
 .library-empty-preview p {
   max-width: 510px;
+}
+
+.library-results-heading {
+  display: flex;
+  justify-content: space-between;
+  padding: 22px 0 14px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.prompt-grid,
+.prompt-skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.prompt-list {
+  display: grid;
+  gap: 10px;
+}
+
+.prompt-card,
+.prompt-row {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  transition:
+    border-color 160ms ease,
+    transform 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.prompt-card:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-2px);
+}
+
+.prompt-card__body {
+  display: block;
+  min-height: 250px;
+  padding: 22px 22px 60px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.prompt-card__eyebrow,
+.prompt-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.prompt-card__eyebrow span:first-child {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.prompt-card h2,
+.prompt-row h2 {
+  margin: 20px 0 9px;
+  font-size: 24px;
+  line-height: 1.12;
+}
+
+.prompt-card__body > p {
+  display: -webkit-box;
+  min-height: 66px;
+  margin-bottom: 18px;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 14px;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.prompt-card__actions {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  display: flex;
+  gap: 7px;
+}
+
+.prompt-card__actions button {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  place-items: center;
+  color: var(--muted);
+  background: var(--surface-strong);
+  cursor: pointer;
+}
+
+.prompt-card__actions button:hover,
+.prompt-card__actions .is-favorite {
+  color: var(--primary);
+  background: var(--primary-soft);
+}
+
+.prompt-row .prompt-card__body {
+  min-height: 0;
+  padding: 18px 118px 18px 20px;
+}
+
+.prompt-row .prompt-card__eyebrow {
+  justify-content: flex-start;
+}
+
+.prompt-row h2 {
+  margin: 9px 0 5px;
+}
+
+.prompt-row .prompt-card__body > p {
+  min-height: 0;
+  margin-bottom: 9px;
+  -webkit-line-clamp: 1;
+}
+
+.prompt-row .prompt-card__actions {
+  top: 50%;
+  bottom: auto;
+  transform: translateY(-50%);
+}
+
+.prompt-skeleton {
+  min-height: 260px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(
+    90deg,
+    var(--surface-muted),
+    var(--surface),
+    var(--surface-muted)
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.3s infinite;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding-top: 28px;
+}
+
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
 }
 
 .editor-page,
@@ -731,6 +911,11 @@ h3 {
   .detail-sidebar {
     grid-row: 1;
   }
+
+  .prompt-grid,
+  .prompt-skeleton-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 560px) {
@@ -764,6 +949,16 @@ h3 {
   .library-filters {
     width: 100%;
     overflow-x: auto;
+  }
+
+  .library-view-options {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .prompt-grid,
+  .prompt-skeleton-grid {
+    grid-template-columns: 1fr;
   }
 
   .page-titlebar,
