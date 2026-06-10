@@ -3,11 +3,18 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ArrowLeft, Save, Star } from "lucide-react";
 import { useEffect } from "react";
 import { useForm, useWatch } from "react-hook-form";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useParams
+} from "react-router-dom";
 import { Button } from "../../components/ui/Button";
 import { Input } from "../../components/ui/Input";
 import { LoadingState } from "../../components/ui/LoadingState";
 import { useToast } from "../../components/ui/toast-context";
+import { getEntitlements } from "../billing/entitlement-api";
+import type { PromptTemplate } from "../templates/template-api";
 import { getPrompt, savePrompt } from "./prompt-api";
 import {
   getPromptOrganization,
@@ -57,10 +64,19 @@ const platforms = [
 
 export function PromptEditor() {
   const { promptId } = useParams();
+  const location = useLocation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { notify } = useToast();
   const isEditing = Boolean(promptId);
+  const template = (
+    location.state as { template?: PromptTemplate } | null
+  )?.template;
+  const entitlements = useQuery({
+    enabled: !isEditing,
+    queryFn: getEntitlements,
+    queryKey: ["entitlements"]
+  });
   const promptQuery = useQuery({
     enabled: isEditing,
     queryFn: () => getPrompt(promptId!),
@@ -77,7 +93,7 @@ export function PromptEditor() {
     handleSubmit,
     register,
     reset,
-    setValue,
+    setValue
   } = useForm<PromptFormValues>({
     defaultValues: defaultPromptValues,
     resolver: zodResolver(promptSchema)
@@ -104,6 +120,18 @@ export function PromptEditor() {
     });
   }, [organizationQuery.data, promptQuery.data, reset]);
 
+  useEffect(() => {
+    if (isEditing || !template) return;
+    reset({
+      ...defaultPromptValues,
+      aiPlatform: template.ai_platform,
+      category: template.category,
+      description: template.description,
+      promptText: template.prompt_text,
+      title: template.title
+    });
+  }, [isEditing, reset, template]);
+
   const mutation = useMutation({
     mutationFn: async (values: PromptFormValues) => {
       const prompt = await savePrompt(promptId ?? null, values);
@@ -112,6 +140,7 @@ export function PromptEditor() {
     },
     onSuccess: async (prompt) => {
       await queryClient.invalidateQueries({ queryKey: promptKeys.all });
+      await queryClient.invalidateQueries({ queryKey: ["entitlements"] });
       notify(isEditing ? "Prompt updated" : "Prompt saved");
       navigate(`/prompts/${prompt.id}`);
     }
@@ -126,6 +155,24 @@ export function PromptEditor() {
       <section className="editor-page">
         <p className="form-error">We could not load this prompt.</p>
         <Link to="/">Return to library</Link>
+      </section>
+    );
+  }
+
+  if (!isEditing && entitlements.data && !entitlements.data.allowed) {
+    return (
+      <section className="editor-page">
+        <div className="limit-card">
+          <span>Free plan limit</span>
+          <h1>Your 25 prompts are working hard.</h1>
+          <p>
+            Archive or delete a prompt to make room, or upgrade when Pro billing
+            becomes available.
+          </p>
+          <Button onClick={() => navigate("/")} variant="secondary">
+            Return to library
+          </Button>
+        </div>
       </section>
     );
   }

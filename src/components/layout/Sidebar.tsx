@@ -6,6 +6,7 @@ import {
   Heart
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
+import { PlanUsage } from "../../features/billing/PlanUsage";
 import { FolderManager } from "../../features/folders/FolderManager";
 
 const navigation = [
@@ -44,6 +45,7 @@ export function Sidebar({ onSignOut }: { onSignOut: () => void }) {
       <FolderManager />
 
       <div className="sidebar-account">
+        <PlanUsage />
         <div className="sidebar-user">
           <span className="sidebar-avatar">PV</span>
           <span>My account</span>
