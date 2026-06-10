@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Plus } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Button } from "../../../components/ui/Button";
 import { useToast } from "../../../components/ui/toast-context";
@@ -19,12 +19,19 @@ import {
 } from "./library-search";
 import { PromptCard } from "./PromptCard";
 
-export function PromptLibraryPage() {
+export function PromptLibraryPage({
+  favoritesOnly = false
+}: {
+  favoritesOnly?: boolean;
+}) {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { notify } = useToast();
   const [params, setParams] = useSearchParams();
-  const filters = parseLibrarySearch(params);
+  const filters = useMemo(() => {
+    const parsed = parseLibrarySearch(params);
+    return favoritesOnly ? { ...parsed, favorite: true } : parsed;
+  }, [favoritesOnly, params]);
   const [queryInput, setQueryInput] = useState(filters.query);
   const [view, setView] = useState<"grid" | "list">(() =>
     localStorage.getItem("prompt-library-view") === "list" ? "list" : "grid"

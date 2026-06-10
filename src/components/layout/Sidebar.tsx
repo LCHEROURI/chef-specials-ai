@@ -8,6 +8,7 @@ import {
 import { NavLink } from "react-router-dom";
 import { PlanUsage } from "../../features/billing/PlanUsage";
 import { FolderManager } from "../../features/folders/FolderManager";
+import { ThemeToggle } from "./ThemeToggle";
 
 const navigation = [
   { label: "Library", icon: BookOpen, to: "/" },
@@ -46,6 +47,7 @@ export function Sidebar({ onSignOut }: { onSignOut: () => void }) {
 
       <div className="sidebar-account">
         <PlanUsage />
+        <ThemeToggle />
         <div className="sidebar-user">
           <span className="sidebar-avatar">PV</span>
           <span>My account</span>

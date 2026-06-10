@@ -424,6 +424,20 @@ h3 {
   cursor: pointer;
 }
 
+.theme-toggle {
+  display: flex;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  background: transparent;
+  cursor: pointer;
+  font-size: 12px;
+}
+
 .mobile-nav {
   display: none;
 }
@@ -804,6 +818,95 @@ h3 {
 
 .limit-card p {
   color: var(--muted);
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.metric-grid article {
+  display: grid;
+  gap: 8px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.metric-grid svg {
+  color: var(--primary);
+}
+
+.metric-grid strong {
+  font-family: var(--font-heading);
+  font-size: 34px;
+}
+
+.metric-grid span {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.analytics-card {
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.analytics-card h2 {
+  font-size: 24px;
+}
+
+.bar-list,
+.ranking-list {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bar-list > div {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  padding-bottom: 9px;
+  font-size: 13px;
+}
+
+.bar-list i {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--primary);
+}
+
+.ranking-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 11px;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+
+.ranking-list strong {
+  color: var(--primary);
+  white-space: nowrap;
 }
 
 .pagination {
@@ -1239,6 +1342,10 @@ h3 {
   .prompt-skeleton-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .metric-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 560px) {
@@ -1281,6 +1388,11 @@ h3 {
 
   .prompt-grid,
   .prompt-skeleton-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .metric-grid,
+  .analytics-grid {
     grid-template-columns: 1fr;
   }
 
