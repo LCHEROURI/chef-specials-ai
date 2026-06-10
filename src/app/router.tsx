@@ -7,6 +7,7 @@ import { PromptEditor } from "../features/prompts/PromptEditor";
 import { PromptLibraryPage } from "../features/prompts/library/PromptLibraryPage";
 import { TemplatesPage } from "../features/templates/TemplatesPage";
 import { AnalyticsPage } from "../features/analytics/AnalyticsPage";
+import { ImportPage } from "../features/imports/ImportPage";
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,7 @@ export const router = createBrowserRouter([
           { element: <TemplatesPage />, path: "/templates" },
           { element: <AnalyticsPage />, path: "/analytics" },
           { element: <PromptEditor />, path: "/prompts/new" },
+          { element: <ImportPage />, path: "/import" },
           { element: <PromptDetail />, path: "/prompts/:promptId" },
           { element: <PromptEditor />, path: "/prompts/:promptId/edit" }
         ]

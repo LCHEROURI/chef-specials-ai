@@ -22,6 +22,8 @@ import {
 } from "./prompt-api";
 import { promptKeys } from "./prompt-keys";
 import { VersionHistory } from "./versions/VersionHistory";
+import { ExportMenu } from "../exports/ExportMenu";
+import { PromptFiles } from "./files/PromptFiles";
 
 export function PromptDetail() {
   const { promptId = "" } = useParams();
@@ -137,6 +139,7 @@ export function PromptDetail() {
               />
               {prompt.favorite ? "Remove favorite" : "Add favorite"}
             </button>
+            <ExportMenu prompt={prompt} />
             <button
               className="detail-action"
               onClick={() =>
@@ -166,6 +169,7 @@ export function PromptDetail() {
           </section>
 
           <VersionHistory prompt={prompt} versions={versionsQuery.data ?? []} />
+          <PromptFiles promptId={prompt.id} />
         </aside>
       </div>
     </section>

@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Plus } from "lucide-react";
+import { FileUp, Plus } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Button } from "../../../components/ui/Button";
@@ -89,9 +89,14 @@ export function PromptLibraryPage({
           <h1>Prompt Library</h1>
           <p>Your best AI prompts, organized and ready to use.</p>
         </div>
-        <Button onClick={() => navigate("/prompts/new")}>
-          New prompt <Plus aria-hidden="true" size={18} />
-        </Button>
+        <div className="library-header__actions library-header__actions--compact">
+          <Button onClick={() => navigate("/import")} variant="secondary">
+            Import <FileUp aria-hidden="true" size={18} />
+          </Button>
+          <Button onClick={() => navigate("/prompts/new")}>
+            New prompt <Plus aria-hidden="true" size={18} />
+          </Button>
+        </div>
       </header>
 
       <LibraryToolbar
