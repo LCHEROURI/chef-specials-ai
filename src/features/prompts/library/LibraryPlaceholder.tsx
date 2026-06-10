@@ -1,7 +1,10 @@
 import { Grid2X2, List, Plus, Search } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "../../../components/ui/Button";
 
 export function LibraryPlaceholder() {
+  const navigate = useNavigate();
+
   return (
     <section className="library-page">
       <header className="library-header">
@@ -15,7 +18,7 @@ export function LibraryPlaceholder() {
             <span className="sr-only">Search prompts</span>
             <input placeholder="Search prompts..." type="search" />
           </label>
-          <Button>
+          <Button onClick={() => navigate("/prompts/new")}>
             New prompt <Plus aria-hidden="true" size={18} />
           </Button>
         </div>
@@ -46,7 +49,9 @@ export function LibraryPlaceholder() {
             template.
           </p>
         </div>
-        <Button>Create first prompt</Button>
+        <Button onClick={() => navigate("/prompts/new")}>
+          Create first prompt
+        </Button>
       </div>
     </section>
   );
