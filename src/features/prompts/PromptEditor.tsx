@@ -27,6 +27,11 @@ import {
   promptSchema,
   type PromptFormValues
 } from "./prompt-schema";
+import {
+  clearPromptDraft,
+  readPromptDraft,
+  usePromptDraft
+} from "./usePromptDraft";
 
 const categories = [
   "Business",
@@ -95,13 +100,18 @@ export function PromptEditor() {
     reset,
     setValue
   } = useForm<PromptFormValues>({
-    defaultValues: defaultPromptValues,
+    defaultValues: {
+      ...defaultPromptValues,
+      ...(!isEditing && !template ? readPromptDraft() : null)
+    },
     resolver: zodResolver(promptSchema)
   });
   const favorite = useWatch({ control, name: "favorite" });
   const folderIds = useWatch({ control, name: "folderIds" });
   const rating = useWatch({ control, name: "rating" });
   const tagIds = useWatch({ control, name: "tagIds" });
+  const draftValues = useWatch({ control });
+  usePromptDraft(draftValues, !isEditing);
 
   useEffect(() => {
     if (!promptQuery.data) return;
@@ -139,6 +149,7 @@ export function PromptEditor() {
       return prompt;
     },
     onSuccess: async (prompt) => {
+      clearPromptDraft();
       await queryClient.invalidateQueries({ queryKey: promptKeys.all });
       await queryClient.invalidateQueries({ queryKey: ["entitlements"] });
       notify(isEditing ? "Prompt updated" : "Prompt saved");
@@ -317,7 +328,7 @@ export function PromptEditor() {
               <Save aria-hidden="true" size={17} />
               {isEditing ? "Save changes" : "Save prompt"}
             </Button>
-            <Button onClick={() => navigate(-1)} variant="secondary">
+          <Button onClick={() => navigate(-1)} variant="secondary">
               Cancel
             </Button>
           </div>

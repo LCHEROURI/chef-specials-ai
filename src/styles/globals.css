@@ -447,6 +447,17 @@ h3 {
   background: var(--surface-strong);
 }
 
+.network-status {
+  position: sticky;
+  z-index: 30;
+  top: 0;
+  padding: 10px 18px;
+  color: #fff;
+  background: var(--danger);
+  font-size: 13px;
+  text-align: center;
+}
+
 .library-page {
   min-height: 100vh;
   padding: clamp(24px, 4vw, 48px);

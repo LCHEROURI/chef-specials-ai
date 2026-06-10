@@ -1,6 +1,8 @@
 import { BookOpen, Menu, Plus } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export function MobileNavigation() {
+  const navigate = useNavigate();
   return (
     <header className="mobile-nav">
       <button aria-label="Open navigation" type="button">
@@ -10,7 +12,11 @@ export function MobileNavigation() {
         <BookOpen aria-hidden="true" size={18} />
         <span>Prompt Vault</span>
       </div>
-      <button aria-label="Create prompt" type="button">
+      <button
+        aria-label="Create prompt"
+        onClick={() => navigate("/prompts/new")}
+        type="button"
+      >
         <Plus aria-hidden="true" />
       </button>
     </header>
