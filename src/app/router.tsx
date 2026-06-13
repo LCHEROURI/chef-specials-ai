@@ -1,6 +1,7 @@
 import { Navigate, createBrowserRouter } from "react-router-dom";
 import { AppShell } from "../components/layout/AppShell";
 import { AuthRoute } from "../features/auth/AuthRoute";
+import { AuthCallback } from "../features/auth/AuthCallback";
 import { ProtectedRoute } from "../features/auth/ProtectedRoute";
 import { PromptDetail } from "../features/prompts/PromptDetail";
 import { PromptEditor } from "../features/prompts/PromptEditor";
@@ -30,6 +31,7 @@ export const router = createBrowserRouter([
       }
     ]
   },
+  { element: <AuthCallback />, path: "/auth/callback" },
   { element: <AuthRoute />, path: "/auth" },
   { element: <Navigate replace to="/" />, path: "*" }
 ]);

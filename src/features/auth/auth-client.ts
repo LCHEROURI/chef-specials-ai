@@ -4,6 +4,7 @@ import { supabase } from "../../lib/supabase";
 type AuthResult = Promise<{ error: { message: string } | null }>;
 
 export type AuthClient = {
+  exchangeCodeForSession: (code: string) => AuthResult;
   signInWithOAuth: (credentials: {
     provider: Provider;
     options: { redirectTo: string };
@@ -20,6 +21,8 @@ export type AuthClient = {
 };
 
 export const authClient: AuthClient = {
+  exchangeCodeForSession: (code) =>
+    supabase.auth.exchangeCodeForSession(code),
   signInWithOAuth: (credentials) =>
     supabase.auth.signInWithOAuth(credentials),
   signInWithPassword: (credentials) =>

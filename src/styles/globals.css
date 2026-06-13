@@ -207,6 +207,41 @@ h3 {
   font-weight: 700;
 }
 
+.auth-callback {
+  display: grid;
+  min-height: 100vh;
+  padding: 24px;
+  place-items: center;
+  background: var(--background);
+}
+
+.auth-callback__card {
+  width: min(100%, 520px);
+  padding: clamp(28px, 6vw, 48px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+}
+
+.auth-callback__card .auth-brand__mark {
+  margin: 0 auto 20px;
+}
+
+.auth-callback__card h1 {
+  font-size: clamp(32px, 6vw, 46px);
+}
+
+.auth-callback__card p {
+  color: var(--danger);
+}
+
+.auth-callback__card a {
+  color: var(--primary);
+  font-weight: 700;
+}
+
 .app-shell {
   display: grid;
   grid-template-columns: 256px minmax(0, 1fr);

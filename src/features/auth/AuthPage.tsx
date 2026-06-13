@@ -14,6 +14,10 @@ type AuthPageProps = {
   client?: AuthClient;
 };
 
+function authCallbackUrl() {
+  return new URL("/auth/callback", window.location.origin).toString();
+}
+
 export function AuthPage({ client = authClient }: AuthPageProps) {
   const [mode, setMode] = useState<AuthMode>("sign-in");
   const [serverMessage, setServerMessage] = useState("");
@@ -35,7 +39,7 @@ export function AuthPage({ client = authClient }: AuthPageProps) {
         ? await client.signInWithPassword(values)
         : await client.signUp({
             ...values,
-            options: { emailRedirectTo: window.location.origin }
+            options: { emailRedirectTo: authCallbackUrl() }
           });
 
     if (result.error) {
@@ -54,7 +58,7 @@ export function AuthPage({ client = authClient }: AuthPageProps) {
     setGoogleLoading(true);
     const result = await client.signInWithOAuth({
       provider: "google",
-      options: { redirectTo: window.location.origin }
+      options: { redirectTo: authCallbackUrl() }
     });
     if (result.error) {
       setServerMessage(result.error.message);

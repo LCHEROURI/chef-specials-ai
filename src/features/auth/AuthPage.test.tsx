@@ -6,6 +6,7 @@ import type { AuthClient } from "./auth-client";
 
 function createAuthClient(): AuthClient {
   return {
+    exchangeCodeForSession: vi.fn().mockResolvedValue({ error: null }),
     signInWithPassword: vi.fn().mockResolvedValue({ error: null }),
     signInWithOAuth: vi.fn().mockResolvedValue({ error: null }),
     signUp: vi.fn().mockResolvedValue({ error: null })
@@ -45,6 +46,6 @@ test("starts Google OAuth with the current origin", async () => {
 
   expect(client.signInWithOAuth).toHaveBeenCalledWith({
     provider: "google",
-    options: { redirectTo: window.location.origin }
+    options: { redirectTo: `${window.location.origin}/auth/callback` }
   });
 });
