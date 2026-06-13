@@ -1,8 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ArrowLeft, Save, Star } from "lucide-react";
-import { useEffect } from "react";
-import { useForm, useWatch } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { useForm, useWatch, type FieldErrors } from "react-hook-form";
+import type { ChangeEvent } from "react";
 import {
   Link,
   useLocation,
@@ -98,6 +99,7 @@ export function PromptEditor() {
     handleSubmit,
     register,
     reset,
+    setFocus,
     setValue
   } = useForm<PromptFormValues>({
     defaultValues: {
@@ -111,7 +113,22 @@ export function PromptEditor() {
   const rating = useWatch({ control, name: "rating" });
   const tagIds = useWatch({ control, name: "tagIds" });
   const draftValues = useWatch({ control });
+  const [submitError, setSubmitError] = useState<string | null>(null);
   usePromptDraft(draftValues, !isEditing);
+
+  function handleInvalidSubmit(invalidErrors: FieldErrors<PromptFormValues>) {
+    if (invalidErrors.title) {
+      setSubmitError("Add a title before saving your prompt.");
+      setFocus("title");
+      return;
+    }
+  }
+
+  function handleTitleChange(event: ChangeEvent<HTMLInputElement>) {
+    if (submitError && event.target.value.trim().length > 0) {
+      setSubmitError(null);
+    }
+  }
 
   useEffect(() => {
     if (!promptQuery.data) return;
@@ -206,14 +223,20 @@ export function PromptEditor() {
 
       <form
         className="prompt-editor"
-        onSubmit={handleSubmit((values) => mutation.mutate(values))}
+        onSubmit={handleSubmit(
+          (values) => {
+            setSubmitError(null);
+            mutation.mutate(values);
+          },
+          handleInvalidSubmit
+        )}
       >
         <div className="prompt-editor__main">
           <Input
             error={errors.title?.message}
             label="Title"
             placeholder="Example: Restaurant menu analysis"
-            {...register("title")}
+            {...register("title", { onChange: handleTitleChange })}
           />
 
           <label className="ui-field">
@@ -321,6 +344,16 @@ export function PromptEditor() {
                 ? mutation.error.message
                 : "We could not save this prompt."}
             </p>
+          ) : null}
+
+          {submitError ? (
+            <div
+              aria-label="Prompt could not be saved"
+              className="form-error"
+              role="alert"
+            >
+              {submitError}
+            </div>
           ) : null}
 
           <div className="editor-actions">
