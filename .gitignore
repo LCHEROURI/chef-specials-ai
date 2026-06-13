@@ -11,3 +11,4 @@ vite.config.d.ts
 .env.local
 playwright-report/
 test-results/
+.playwright-browsers/
