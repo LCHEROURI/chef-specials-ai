@@ -97,6 +97,81 @@ insert into public.templates (
   'Marketing',
   'Claude',
   true
+),
+(
+  'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',
+  null,
+  'Master Prompt Template',
+  'A reusable six-part framework imported from the Master Prompt Template PDF.',
+  $prompt$ROLE:
+You are a [specific specialist] with [years/qualifier of experience] in [narrow domain].
+
+CONTEXT:
+You are helping [specific person/situation]. The end user is [demographic/skill level]. The bigger picture is [why this matters].
+
+OBJECTIVE:
+Generate [exact deliverable] for [specific use case].
+
+CONSTRAINTS:
+- [Format rule]
+- [Length rule]
+- [Words/topics to avoid]
+- [Tone rule]
+
+EXAMPLES:
+Here is one reference output in the style I want:
+"[paste actual example]"
+
+OUTPUT FORMAT:
+[Exact structure of the response, with separators if needed]$prompt$,
+  'Prompt Engineering',
+  'Any AI',
+  true
+),
+(
+  'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',
+  null,
+  'Power Prompt Builder',
+  'An expanded prompt brief for high-stakes, implementation-ready AI work.',
+  $prompt$ROLE:
+You are a [specific expert role] with deep experience in [domain].
+
+CONTEXT:
+I am [who I am / current situation].
+The end user is [audience and skill level].
+This matters because [business or personal outcome].
+
+OBJECTIVE:
+Create [exact deliverable] that helps me [measurable result].
+
+INPUTS:
+- Source material: [paste or attach]
+- Known facts: [facts]
+- Assumptions to validate: [assumptions]
+- Missing information: [gaps]
+
+CONSTRAINTS:
+- Format: [required format]
+- Length: [target length]
+- Tone: [tone]
+- Must include: [requirements]
+- Must avoid: [prohibited claims, topics, or styles]
+- Deadline or time horizon: [date / period]
+
+PROCESS:
+1. Identify the most important requirements and dependencies.
+2. Separate facts from assumptions.
+3. Produce the requested deliverable.
+4. Flag risks, gaps, or decisions that need human review.
+
+OUTPUT FORMAT:
+[Specify sections, table columns, headings, or schema exactly.]
+
+QUALITY CHECK:
+Before answering, verify that the result is accurate, complete, specific, internally consistent, and ready to use. Return only the final deliverable unless clarification is essential.$prompt$,
+  'Prompt Engineering',
+  'Any AI',
+  true
 )
 on conflict (id) do update
 set title = excluded.title,
