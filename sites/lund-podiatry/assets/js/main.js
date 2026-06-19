@@ -8,6 +8,26 @@
    - Cloudflare Turnstile callbacks (globals for data-callback attribute)
    ========================================================================== */
 
+/* --- GitHub-Pages subpath base-tag fix -------------------------------
+   When deployed under github.io (e.g. lcherouri.github.io/prompt-vault-pro/...),
+   root-relative URLs like <a href="/about.html"> don't resolve correctly because
+   the site is served from a subdirectory. We inject a <base> tag scoped to the
+   github.io hostname so subsequent clicks resolve relatively to the subpath.
+   On Vercel (or any non-github.io host), no base tag is added — root-relative
+   is correct there because Vercel serves from the apex. Idempotent: skips if a
+   <base> already exists in the head, never throws. */
+(function injectGitHubPagesBase() {
+  try {
+    var host = (window.location.hostname || '').toLowerCase();
+    if (host.indexOf('github.io') === -1) return;
+    var head = document.head || document.getElementsByTagName('head')[0];
+    if (!head || head.querySelector('base')) return;
+    var b = document.createElement('base');
+    b.href = '/prompt-vault-pro/sites/lund-podiatry/';
+    head.insertBefore(b, head.firstChild);
+  } catch (_) { /* never break the page */ }
+})();
+
 // Global handlers for Cloudflare Turnstile — defined at window scope so the
 // data-callback="onTurnstileSuccess" attribute can resolve by name.
 function onTurnstileSuccess(token) {
