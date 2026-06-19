@@ -1,0 +1,8 @@
+{
+  "title": "Restaurant Menu Improvement",
+  "description": "Find practical ways to improve a restaurant menu.",
+  "category": "Restaurants",
+  "platform": "ChatGPT",
+  "tag": "Menu planning",
+  "promptText": "Act as an experienced restaurant consultant. Review the fictional menu provided and identify opportunities to improve clarity, profitability, item placement, and guest appeal. Return prioritized recommendations with reasons and practical next steps."
+}

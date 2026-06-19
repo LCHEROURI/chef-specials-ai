@@ -1,0 +1,47 @@
+# Vercel — explicit ignore list for the `sites/lund-podiatry` subdirectory deploy.
+#
+# When Vercel's "Root Directory" setting is `sites/lund-podiatry`, Vercel reads
+# this file just like .gitignore to decide which files within that subdirectory
+# are NOT included in the build input / production CDN bundle.
+#
+# Keep this file minimal. Only list things we explicitly do not want shipped.
+# Patterns follow .gitignore syntax (with one Vercel-specific extra: ! negation).
+#
+# Reference: https://vercel.com/docs/projects/vercelignore
+
+# --- OS + editor junk (defensive — Vercel already strips most of these for HTTP cleanliness)
+.DS_Store
+Thumbs.db
+*.swp
+*.bak
+*.tmp
+*~
+
+# --- Local-only framework artifacts (defensive — Vercel does not deploy node_modules anyway)
+node_modules/
+.vercel/
+.turbo/
+.next/
+
+# --- Dev-only scripts / tests (kept in repo for engineering convenience, never shipped to CDN)
+tests/
+__tests__/
+test/
+spec/
+*.test.mjs
+*.test.ts
+*.spec.ts
+
+# --- These are not needed in the deploy input because Vercel does NOT run an
+# install or build step for this static site (Build/Install/Output commands all empty).
+package.json
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# --- Internal documentation (live in repo for engineering handoff; intentionally NOT shipped)
+# README.md is intentionally shipped — informs the team without exposing sensitive info.
+# If you ever add a STRATEGY.md or other internal-only doc, list it here.
+# STRATEGY.md
+# CHANGELOG.md
+# TODO.md

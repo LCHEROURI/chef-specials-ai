@@ -12,3 +12,7 @@ vite.config.d.ts
 playwright-report/
 test-results/
 .playwright-browsers/
+tutorial/captures/
+tutorial/audio/
+tutorial/work/
+tutorial/output/

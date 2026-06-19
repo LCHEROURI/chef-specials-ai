@@ -1,0 +1,119 @@
+{
+  "name": "detailed",
+  "format": "guided-product-tour",
+  "description": "A detailed guided tour that walks through the approved twelve storyboard sections using fictional Prompt Vault Pro beta content.",
+  "exports": [
+    "prompt-vault-pro-detailed-16x9.mp4",
+    "prompt-vault-pro-detailed-9x16.mp4"
+  ],
+  "scenes": [
+    {
+      "id": "opening-library",
+      "durationSeconds": 14,
+      "route": "/",
+      "action": "show-library-overview",
+      "narration": "Begin in the library to orient beta testers around saved prompts, recent activity, and the workspace they will revisit most often.",
+      "caption": "Start from the main library.",
+      "focus": "library-toolbar"
+    },
+    {
+      "id": "auth-page",
+      "durationSeconds": 14,
+      "route": "/auth",
+      "action": "show-private-sign-in",
+      "narration": "Pause on the app sign-in page to explain that the beta tour avoids personal account menus and keeps every visible detail privacy-safe.",
+      "caption": "Use the safe app sign-in screen.",
+      "focus": "auth-card"
+    },
+    {
+      "id": "new-prompt-empty",
+      "durationSeconds": 18,
+      "route": "/prompts/new",
+      "action": "show-empty-editor",
+      "narration": "Open a new prompt to show the clean starting point before any title, description, or reusable instructions are filled in.",
+      "caption": "Open a blank prompt editor.",
+      "focus": "prompt-editor"
+    },
+    {
+      "id": "create-prompt",
+      "durationSeconds": 22,
+      "route": "/prompts/new",
+      "action": "complete-demo-prompt",
+      "narration": "Add the Restaurant Menu Improvement title, the restaurant category, and the reusable consultant prompt so the prompt is clear and easy to share.",
+      "caption": "Complete the fictional demo prompt.",
+      "focus": "prompt-editor"
+    },
+    {
+      "id": "prompt-saved",
+      "durationSeconds": 16,
+      "route": "/prompts/restaurant-menu-improvement",
+      "action": "review-saved-prompt",
+      "narration": "After saving, review the detail page to confirm the prompt looks polished, readable, and ready for later use.",
+      "caption": "Review the saved prompt page.",
+      "focus": "prompt-detail"
+    },
+    {
+      "id": "recently-added",
+      "durationSeconds": 14,
+      "route": "/",
+      "action": "highlight-recently-added",
+      "narration": "Return to the library and point out the recently added area so new prompts feel easy to spot after saving.",
+      "caption": "Spot the prompt in Recently added.",
+      "focus": "recently-added-list"
+    },
+    {
+      "id": "search-results",
+      "durationSeconds": 16,
+      "route": "/prompts?query=menu",
+      "action": "show-search-results",
+      "narration": "Use search for the word menu to show that saved prompts stay easy to retrieve without rebuilding them from scratch.",
+      "caption": "Search and retrieve the prompt fast.",
+      "focus": "search-panel"
+    },
+    {
+      "id": "prompt-detail",
+      "durationSeconds": 18,
+      "route": "/prompts/restaurant-menu-improvement",
+      "action": "open-prompt-detail",
+      "narration": "Open the prompt again from search results to reinforce the single source of truth for reusable prompt instructions.",
+      "caption": "Reopen the prompt detail view.",
+      "focus": "prompt-detail"
+    },
+    {
+      "id": "knowledge-files",
+      "durationSeconds": 16,
+      "route": "/prompts/restaurant-menu-improvement/files",
+      "action": "attach-fictional-menu-file",
+      "narration": "Show the knowledge files area and add the fictional sample menu so supporting context stays attached to the prompt.",
+      "caption": "Attach the fictional menu file.",
+      "focus": "knowledge-files"
+    },
+    {
+      "id": "version-history",
+      "durationSeconds": 16,
+      "route": "/prompts/restaurant-menu-improvement/history",
+      "action": "review-version-history",
+      "narration": "Visit version history to explain how prompt changes remain visible and recoverable as teams refine their best instructions.",
+      "caption": "Review prompt version history.",
+      "focus": "version-history"
+    },
+    {
+      "id": "templates",
+      "durationSeconds": 20,
+      "route": "/templates",
+      "action": "browse-templates",
+      "narration": "Browse templates to show how Prompt Vault Pro can jump-start new workflows with reusable structures instead of blank pages.",
+      "caption": "Browse reusable prompt templates.",
+      "focus": "template-gallery"
+    },
+    {
+      "id": "import",
+      "durationSeconds": 20,
+      "route": "/import",
+      "action": "show-import-options",
+      "narration": "Finish on import to show the path for bringing existing prompts into the library and expanding the collection over time.",
+      "caption": "Import prompts into the library.",
+      "focus": "import-panel"
+    }
+  ]
+}

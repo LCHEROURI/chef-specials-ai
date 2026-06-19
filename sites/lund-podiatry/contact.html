@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%230F1E3D'/%3E%3Cpath d='M30 28h14v40h28v14H30z' fill='%23F5C242'/%3E%3C/svg%3E" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0F1E3D" />
+
+  <title>Contact — Free Insurance & Treatment Check | Lund Podiatry</title>
+  <meta name="description" content="Tell us about your foot pain and we'll verify your insurance, then book your personalized visit with Dr. Lund. Reply within 2 business hours. encrypted." />
+  <link rel="canonical" href="https://lundpodiatry.com/contact.html" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Contact Lund Podiatry — Free Insurance & Treatment Check" />
+  <meta property="og:description" content="Get a free insurance &amp; treatment check from Dr. Alexis Lund, DPM. Reply within 2 business hours." />
+  <meta property="og:url" content="https://lundpodiatry.com/contact.html" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" />
+  <link rel="stylesheet" href="./assets/css/styles.css" />
+
+  <!-- Cloudflare Turnstile (anti-bot). The Turnstile JS is loaded conditionally
+       from assets/js/main.js ONLY when the data-sitekey on .cf-turnstile has
+       been replaced with a real Cloudflare sitekey (it currently still reads
+       TODO_TURNSTILE_SITE_KEY). Until you swap the placeholder, main.js hides
+       the widget and never injects the api.js script — which keeps the local
+       preview console clean. After deploy: go to /admin on Cloudflare to copy
+       the sitekey, replace TODO_TURNSTILE_SITE_KEY on the widget below, and set
+       matching TURNSTILE_SECRET_KEY + turnstile.sitekey=true in Vercel env vars. -->
+
+  <!-- ContactPage JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"ContactPage",
+    "name":"Contact Lund Podiatry",
+    "url":"https://lundpodiatry.com/contact.html",
+    "mainEntity":{"@type":"MedicalClinic","name":"Lund Podiatry","telephone":"+1-303-555-0123","address":{"@type":"PostalAddress","streetAddress":"2510 N 47th St","addressLocality":"Boulder","addressRegion":"CO","postalCode":"80301","addressCountry":"US"}}
+  }
+  </script>
+</head>
+<body data-no-sticky>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="/index.html" class="brand" aria-label="Lund Podiatry home">
+      <span class="brand-mark">LP</span><span class="brand-name">Lund Podiatry</span>
+    </a>
+    <nav class="primary-nav" aria-label="Primary">
+      <a href="/services/plantar-fasciitis.html">Conditions</a>
+      <a href="/about.html">About</a>
+      <a href="/insurance.html">Insurance</a>
+      <a href="/contact.html">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <a href="tel:+13035550123" class="phone-link">📞 (303) 555-0123</a>
+      <a href="/contact.html" class="btn btn-primary">Free Insurance Check</a>
+    </div>
+    <button class="mobile-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-drawer">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</header>
+<div class="mobile-drawer" id="mobile-drawer">
+  <a href="/services/plantar-fasciitis.html">Conditions</a>
+  <a href="/about.html">About</a>
+  <a href="/insurance.html">Insurance</a>
+  <a href="/contact.html">Contact</a>
+  <a href="tel:+13035550123" style="padding:14px 4px;border-bottom:1px solid var(--mist);">📞 (303) 555-0123</a>
+  <a href="/contact.html" class="btn btn-primary">Free Insurance Check</a>
+</div>
+
+<main id="main">
+<div class="container" style="padding-top:40px;">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/index.html">Home</a> <span class="sep">›</span> <span>Contact</span>
+  </nav>
+</div>
+
+<section class="section" style="padding-top:24px;">
+  <div class="container" style="max-width:760px;">
+    <div class="text-center" data-reveal>
+      <span class="eyebrow">Free Insurance &amp; Treatment Check</span>
+      <h1 class="h1" style="font-size:clamp(2rem,4.4vw,3.4rem);">Tell us about your foot.</h1>
+      <p class="lede" style="margin:0 auto 36px;">Four short questions. We'll verify your insurance and reply within 2 business hours — no spam, no pressure.</p>
+    </div>
+
+    <form class="form-card" data-form-wizard data-success="/thank-you.html" action="/api/contact" method="POST" novalidate data-reveal aria-label="Free insurance and treatment check">
+
+      <!-- honeypot: hidden from real users (off-screen, off-focus); naive bots auto-fill every input -->
+      <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;opacity:0;height:0;width:0;" />
+
+      <div class="form-progress" aria-label="Form progress">
+        <span data-current="true"></span><span></span><span></span><span></span>
+      </div>
+
+      <!-- Step 1: Where does it hurt? -->
+      <div class="form-step" data-active="true">
+        <h3>Where does it hurt?</h3>
+        <p>This helps Dr. Lund prepare for your first visit.</p>
+        <div id="step-0-error" role="alert" aria-live="polite" class="form-step-errors"></div>
+        <div class="choice-grid choice-grid-2">
+          <label class="choice">
+            <input type="radio" name="condition" value="heel-pain" required />
+            <div class="choice-card"><strong>Heel / bottom of foot</strong><span>Plantar fasciitis, heel spur</span></div>
+          </label>
+          <label class="choice">
+            <input type="radio" name="condition" value="big-toe" />
+            <div class="choice-card"><strong>Big toe / bunion area</strong><span>Bunion, hallux limitus</span></div>
+          </label>
+          <label class="choice">
+            <input type="radio" name="condition" value="toenails" />
+            <div class="choice-card"><strong>Toenails</strong><span>Ingrown, fungal</span></div>
+          </label>
+          <label class="choice">
+            <input type="radio" name="condition" value="ankle" />
+            <div class="choice-card"><strong>Ankle</strong><span>Sprain, instability</span></div>
+          </label>
+          <label class="choice">
+            <input type="radio" name="condition" value="diabetic" />
+            <div class="choice-card"><strong>Diabetic check-up</strong><span>Prevention & screening</span></div>
+          </label>
+          <label class="choice">
+            <input type="radio" name="condition" value="other" />
+            <div class="choice-card"><strong>Something else</strong><span>Tell us in the next step</span></div>
+          </label>
+        </div>
+        <div class="form-actions">
+          <span class="form-trust">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>
+            Encrypted in transit · contact details are private
+          </span>
+          <button type="button" class="btn btn-primary" data-next>Continue →</button>
+        </div>
+      </div>
+
+      <!-- Step 2: How long? -->
+      <div class="form-step">
+        <h3>How long has this been bothering you?</h3>
+        <p>Helps Dr. Lund triage your visit.</p>
+        <div id="step-1-error" role="alert" aria-live="polite" class="form-step-errors"></div>
+        <div class="choice-grid">
+          <label class="choice">
+            <input type="radio" name="duration" value="under-1-month" required />
+            <div class="choice-card"><strong>Less than a month</strong><span>Recent onset or injury</span></div>
+          </label>
+          <label class="choice">
+            <input type="radio" name="duration" value="1-6-months" />
+            <div class="choice-card"><strong>1 — 6 months</strong><span>Ongoing but not chronic</span></div>
+          </label>
+          <label class="choice">
+            <input type="radio" name="duration" value="over-6-months" />
+            <div class="choice-card"><strong>6+ months</strong><span>Chronic — multiple attempts to fix</span></div>
+          </label>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost" data-prev>← Back</button>
+          <button type="button" class="btn btn-primary" data-next>Continue →</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Insurance -->
+      <div class="form-step">
+        <h3>Do you have insurance?</h3>
+        <p>Most major plans accepted. We'll verify your exact coverage — for free.</p>
+        <div id="step-2-error" role="alert" aria-live="polite" class="form-step-errors"></div>
+        <div class="choice-grid choice-grid-3">
+          <label class="choice">
+            <input type="radio" name="insurance" value="yes" required />
+            <div class="choice-card"><strong>Yes — I'll share it</strong><span>We verify coverage for you</span></div>
+          </label>
+          <label class="choice">
+            <input type="radio" name="insurance" value="not-sure" />
+            <div class="choice-card"><strong>Not sure</strong><span>We'll check for you</span></div>
+          </label>
+          <label class="choice">
+            <input type="radio" name="insurance" value="self-pay" />
+            <div class="choice-card"><strong>Self-pay</strong><span>Transparent pricing, no surprises</span></div>
+          </label>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost" data-prev>← Back</button>
+          <button type="button" class="btn btn-primary" data-next>Continue →</button>
+        </div>
+      </div>
+
+      <!-- Step 4: Contact -->
+      <div class="form-step">
+        <h3>How should we reach you?</h3>
+        <p>We reply within 2 business hours with your insurance check &amp; first-visit options.</p>
+        <div class="form-grid form-grid-2">
+          <div class="field">
+            <label for="firstName">First name</label>
+            <input id="firstName" name="firstName" type="text" required autocomplete="given-name" />
+            <div class="field-error">Please enter your first name.</div>
+          </div>
+          <div class="field">
+            <label for="lastName">Last name</label>
+            <input id="lastName" name="lastName" type="text" required autocomplete="family-name" />
+            <div class="field-error">Please enter your last name.</div>
+          </div>
+          <div class="field">
+            <label for="phone">Phone</label>
+            <input id="phone" name="phone" type="tel" required placeholder="(303) 555-0123" autocomplete="tel" />
+            <div class="field-error">Please enter a valid phone number.</div>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required placeholder="you@example.com" autocomplete="email" />
+            <div class="field-error">Please enter a valid email.</div>
+          </div>
+          <div class="field" style="grid-column:1/-1;">
+            <label for="contactTime">Best time to reach you</label>
+            <select id="contactTime" name="contactTime" required>
+              <option value="">Select a window…</option>
+              <option>Morning (9 — 12)</option>
+              <option>Afternoon (12 — 4)</option>
+              <option>Evening (4 — 6)</option>
+              <option>Anytime — email is fine</option>
+            </select>
+            <div class="field-error">Please pick a preferred time.</div>
+          </div>
+        </div>
+        <p style="font-size:0.86rem;color:var(--slate);margin-top:14px;">
+          By submitting, you consent to be contacted by Lund Podiatry about your inquiry. Your information is encrypted in transit and never shared with third-party marketers. We never share data with third-party marketers.
+        </p>
+
+        <!-- Cloudflare Turnstile widget + hidden token field -->
+        <div class="cf-turnstile-wrap" style="margin:20px 0 8px;">
+          <div class="cf-turnstile" data-sitekey="TODO_TURNSTILE_SITE_KEY" data-callback="onTurnstileSuccess" data-expired-callback="onTurnstileExpired" data-error-callback="onTurnstileError"></div>
+          <input type="hidden" name="cf-turnstile-response" id="cf-turnstile-response" />
+          <div id="turnstile-error" role="alert" aria-live="polite" style="margin-top:8px;font-size:0.86rem;"></div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost" data-prev>← Back</button>
+          <button type="submit" class="btn btn-primary" data-submit disabled aria-disabled="true">Verify you\u2019re human below ↑</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="grid grid-2" data-reveal>
+      <div>
+        <span class="eyebrow">Prefer the phone?</span>
+        <h2 class="h2">Just call us.</h2>
+        <p class="lede">A real person answers during office hours. We can verify your insurance right on the call.</p>
+        <p style="font-size:1.6rem;font-family:var(--font-display);font-weight:700;">
+          <a href="tel:+13035550123">📞 (303) 555-0123</a>
+        </p>
+        <p style="color:var(--slate);">Mon — Thu · 9 am — 5 pm · Friday · 9 am — 3 pm</p>
+      </div>
+      <div>
+        <span class="eyebrow">Walk-in?</span>
+        <h2 class="h2">Stop by.</h2>
+        <p class="lede">Same-day urgent care is available for severe pain, infection, or injury. Call first if you can.</p>
+        <address style="font-style:normal;line-height:1.7;">
+          <strong>2510 N 47th St</strong><br/>
+          Boulder, CO 80301
+        </address>
+        <div style="margin-top:20px;border-radius:var(--ra-md);overflow:hidden;border:1px solid var(--mist);aspect-ratio:4/3;background:var(--cream-deep);">
+          <iframe
+            src="https://maps.google.com/maps?q=Lund%20Podiatry%2C%202510 N 47th St%2C%20Boulder%2C%20CO%2080301&t=&z=15&ie=UTF8&iwloc=&output=embed"
+            width="100%" height="100%" style="border:0;display:block;"
+            title="Lund Podiatry office location"
+            loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand" style="margin-bottom:14px;"><span class="brand-mark">LP</span><span class="brand-name">Lund Podiatry</span></div>
+        <p>Personalized foot and ankle care by Dr. Alexis Lund, DPM.</p>
+      </div>
+      <div><h4>Visit</h4><ul>
+        <li>2510 N 47th St</li>
+        <li>Boulder, CO 80301</li>
+        <li><a href="tel:+13035550123">📞 (303) 555-0123</a></li>
+        <li><a href="mailto:hello@lundpodiatry.com">hello@lundpodiatry.com</a></li>
+      </ul></div>
+      <div><h4>Hours</h4><ul>
+        <li>Mon — Thu · 9 — 5</li><li>Friday · 9 — 3</li><li>Sat — Sun · Closed</li>
+        <li><a href="/contact.html">Book online →</a></li>
+      </ul></div>
+      <div><h4>Explore</h4><ul>
+        <li><a href="/services/plantar-fasciitis.html">Plantar Fasciitis</a></li>
+        <li><a href="/services/bunions.html">Bunions</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/insurance.html">Insurance</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 Lund Podiatry.</div>
+      <div><a href="#">HIPAA</a> · <a href="#">Privacy</a> · <a href="#">Accessibility</a> · <a href="/sitemap.xml">Sitemap</a></div>
+    </div>
+  </div>
+</footer>
+
+<div class="mobile-sticky" aria-label="Quick contact options">
+  <a href="tel:+13035550123" class="btn btn-ghost">📞 Call Now</a>
+  <a href="/contact.html" class="btn btn-primary">Free Insurance Check</a>
+</div>
+<script src="./assets/js/main.js" defer></script>
+</body>
+</html>

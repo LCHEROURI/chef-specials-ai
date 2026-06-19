@@ -1,0 +1,65 @@
+{
+  "name": "quick",
+  "format": "guided-product-tour",
+  "description": "A short guided tour that shows the core Prompt Vault Pro beta workflow with fictional demo content.",
+  "exports": [
+    "prompt-vault-pro-quick-16x9.mp4",
+    "prompt-vault-pro-quick-9x16.mp4"
+  ],
+  "scenes": [
+    {
+      "id": "opening-library",
+      "durationSeconds": 15,
+      "route": "/",
+      "action": "show-library-overview",
+      "narration": "Start in your library to see saved prompts, recent activity, and the place where reusable ideas stay organized.",
+      "caption": "Open your prompt library.",
+      "focus": "library-toolbar"
+    },
+    {
+      "id": "auth-page",
+      "durationSeconds": 14,
+      "route": "/auth",
+      "action": "show-private-sign-in",
+      "narration": "For beta sharing, use the app sign-in page so the tour stays privacy-safe and avoids exposing any personal account details.",
+      "caption": "Share the safe sign-in view.",
+      "focus": "auth-card"
+    },
+    {
+      "id": "create-prompt",
+      "durationSeconds": 22,
+      "route": "/prompts/new",
+      "action": "complete-demo-prompt",
+      "narration": "Select New prompt, then add the Restaurant Menu Improvement title and paste the reusable prompt content for a fictional menu review workflow.",
+      "caption": "Add a title and your reusable prompt.",
+      "focus": "prompt-editor"
+    },
+    {
+      "id": "prompt-saved",
+      "durationSeconds": 16,
+      "route": "/prompts/restaurant-menu-improvement",
+      "action": "review-saved-prompt",
+      "narration": "Save the prompt to confirm the detail view, the cleaned-up layout, and the ready-to-reuse instructions for future sessions.",
+      "caption": "Save and review the prompt.",
+      "focus": "prompt-detail"
+    },
+    {
+      "id": "knowledge-files",
+      "durationSeconds": 16,
+      "route": "/prompts/restaurant-menu-improvement/files",
+      "action": "attach-fictional-menu-file",
+      "narration": "Attach the fictional sample menu so the prompt and its supporting knowledge stay together for repeatable restaurant planning analysis.",
+      "caption": "Pair the prompt with a sample menu.",
+      "focus": "knowledge-files"
+    },
+    {
+      "id": "search-results",
+      "durationSeconds": 10,
+      "route": "/prompts?query=menu",
+      "action": "show-search-results",
+      "narration": "Finish with search to show how quickly the saved prompt comes back when someone needs it again.",
+      "caption": "Find the prompt again in seconds.",
+      "focus": "search-panel"
+    }
+  ]
+}
