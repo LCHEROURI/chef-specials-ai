@@ -1,0 +1,20 @@
+/* TEAM */
+Site:      Lund Podiatry — PROTOTYPE BUILD
+Site lead: Laredj Chehrouri
+Doctor:    Dr. Alexis Lund, DPM
+Built:     2026-06 / Prompt Vault Pro / monorepo path sites/lund-podiatry
+
+/* SITE */
+Last deploy: see git log on prompt-vault-pro branch codex/prompt-vault-pro
+Standards:   HTML5, CSS3, vanilla JS, no build step
+Hosting:     GitHub Pages (prototype) / Vercel (production target)
+Components:  Cloudflare Turnstile bot defense, Resend (BAA) or Web3Forms email relay
+Fonts:       Inter (UI), Plus Jakarta Sans (display) — Google Fonts
+Icons:       inline SVG only (no external icon CDN)
+
+/* THANKS */
+Inspired by hundreds of small-practice medical sites. No template purchased.
+No photos licensed. Headshots and clinical imagery are placeholder rectangles — the production deploy must source them with consent.
+
+/* NOTE */
+This is a prototype. Address, phone, hours, credentials, and testimonials are placeholder values intended to be replaced before any customer-facing launch.

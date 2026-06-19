@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%230F1E3D'/%3E%3Cpath d='M30 28h14v40h28v14H30z' fill='%23F5C242'/%3E%3C/svg%3E" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0F1E3D" />
+
+  <title>Privacy & data handling — Lund Podiatry</title>
+  <meta name="description" content="How Lund Podiatry collects, transmits, and stores the information you share with us. Plain-English, no legalese." />
+  <link rel="canonical" href="https://lundpodiatry.com/privacy.html" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Privacy & data handling — Lund Podiatry" />
+  <meta property="og:description" content="How information you share is collected, transmitted, and stored." />
+  <meta property="og:url" content="https://lundpodiatry.com/privacy.html" />
+  <meta property="og:image" content="https://lundpodiatry.com/assets/img/og-insurance.svg" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Privacy & data handling — Lund Podiatry" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" />
+  <link rel="stylesheet" href="./assets/css/styles.css" />
+  <link rel="manifest" href="./site.webmanifest" />
+  <link rel="apple-touch-icon" href="./assets/img/og-image.svg" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container nav-row" role="navigation" aria-label="Primary">
+      <a class="brand" href="/" aria-label="Lund Podiatry — Home">
+        <svg width="36" height="36" viewBox="0 0 100 100" aria-hidden="true">
+          <rect width="100" height="100" rx="18" fill="#0F1E3D" />
+          <path d="M30 28h14v40h28v14H30z" fill="#F5C242" />
+        </svg>
+        <span>Lund Podiatry</span>
+      </a>
+      <nav class="primary-nav">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/services.html">Services</a></li>
+          <li><a href="/insurance.html">Insurance</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container section legal-page">
+    <p class="eyebrow">Legal</p>
+    <h1>Privacy &amp; data handling</h1>
+    <p class="lead">Plain-English summary of how this site handles the information you share with us. Formal notice: <strong>this page is a draft for a prototype deployment and must be reviewed by counsel before going live</strong>.</p>
+
+    <h2>What we collect when you use the site</h2>
+    <p><strong>By default — nothing.</strong> This site does not set tracking cookies, does not run third-party analytics, and does not fingerprint your device. Pages render with no JavaScript-exfiltrated telemetry. Your read-only browsing does not give us any personal information.</p>
+
+    <h2>What we collect when you submit a form</h2>
+    <p>The contact form on <a href="/contact.html">/contact.html</a> collects these fields when you choose to submit them:</p>
+    <ul>
+      <li>First and last name</li>
+      <li>Phone number</li>
+      <li>Email address</li>
+      <li>Condition treated (e.g. "heel pain")</li>
+      <li>How long you've had symptoms</li>
+      <li>Insurance plan (or "self-pay")</li>
+      <li>Best time to reach you</li>
+    </ul>
+    <p>These fields are required because Dr. Lund's office triages the request by hand — calling or emailing a real person, not running an autoresponder.</p>
+
+    <h2>How we transmit and store that form submission</h2>
+    <ol>
+      <li><strong>In transit:</strong> TLS 1.2+ at the Vercel edge.</li>
+      <li><strong>Bot protection:</strong> Cloudflare Turnstile verifies a non-interactive token before the form submits. The verification request includes your IP and the token — never your name, email, or description.</li>
+      <li><strong>Rate limit:</strong> 10 submissions / IP / minute. Excess traffic is rejected without storage.</li>
+      <li><strong>Relay:</strong> the serverless function forwards the lead to one of two email-relay providers, in this priority order:
+        <ul>
+          <li><strong>Resend</strong> (used when a signed HIPAA BAA is in place). Highest priority.</li>
+          <li><strong>Web3Forms</strong> (fallback). Used only when Resend is unset or its BAA is unsigned.</li>
+        </ul>
+      </li>
+      <li><strong>Logs:</strong> function logs record <em>condition, duration, insurance</em> — never name, phone, or email. Logs are PHI-light so a casual log-reader can't reconstruct a patient.</li>
+    </ol>
+
+    <h2>What we do with the information</h2>
+    <p>Dr. Lund's staff uses the lead to call or email you back during the contact window you selected. We do not sell, share, or rent contact information to any third party under any circumstance. We do not use the information for marketing automation sequences, lead-scoring algorithms, or AI training.</p>
+
+    <h2>What we do not collect</h2>
+    <ul>
+      <li>No third-party analytics (no Google Analytics, Meta Pixel, Hotjar, Plausible, etc.).</li>
+      <li>No session recordings or behavioral heatmaps.</li>
+      <li>No cross-site cookies, no fingerprinting, no advertising IDs.</li>
+      <li>No social-login or OAuth flow that bounces you through Google or Facebook.</li>
+    </ul>
+
+    <h2>Your controls</h2>
+    <ul>
+      <li><strong>Ask us to delete a lead:</strong> call <a href="tel:+13035550123">(303) 555-0123</a> or reply "delete" to the email you received. We will remove the message from the email-relay account within 5 business days.</li>
+      <li><strong>Ask us what we have:</strong> same channels; we will tell you exactly what was relayed.</li>
+      <li><strong>Browser controls:</strong> the site honors the standard browser DNT (Do Not Track) signal as a matter of practice, although we ship no third-party trackers that would respect it either way.</li>
+    </ul>
+
+    <h2>Children's privacy</h2>
+    <p>Our service is not directed to children under 13. We do not knowingly collect information from anyone under 13. Submitting on behalf of a minor is fine — please note that in the "anything else" field of the form.</p>
+
+    <h2>Changes to this page</h2>
+    <p>Material changes get a dated entry below and a clear banner on the homepage for at least 30 days.</p>
+    <ul class="changelog">
+      <li><strong>2026-06-18</strong> — Initial draft (prototype build).</li>
+    </ul>
+
+    <p class="muted small">Have a question about this page? Reach out via the <a href="/contact.html">contact form</a> — we read every message.</p>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <p class="footer-meta">© <span id="yr"></span> Lund Podiatry — PROTOTYPE BUILD. placeholder NAP. No patient data leaves your browser until you explicitly submit a form.</p>
+      <ul class="footer-nav">
+        <li><a href="/privacy.html">Privacy</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+        <li><a href="/insurance.html">Insurance</a></li>
+      </ul>
+    </div>
+    <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+  </footer>
+</body>
+</html>

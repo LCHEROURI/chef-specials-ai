@@ -1,0 +1,5 @@
+Contact: mailto:security@lundpodiatry.com
+Contact: https://lundpodiatry.com/contact.html
+Expires: 2027-12-31T23:59:59z
+Preferred-Languages: en
+Canonical: https://lundpodiatry.com/.well-known/security.txt

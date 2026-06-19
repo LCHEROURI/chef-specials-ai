@@ -1,0 +1,28 @@
+{
+  "name": "Lund Podiatry",
+  "short_name": "Lund Podiatry",
+  "description": "Step without pain. Expert foot & ankle care from Dr. Alexis Lund, DPM.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0F1E3D",
+  "theme_color": "#0F1E3D",
+  "orientation": "portrait-primary",
+  "lang": "en-US",
+  "icons": [
+    {
+      "src": "/assets/img/og-image.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/img/og-image.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["health", "medical"],
+  "id": "/?source=pwa"
+}
