@@ -1,0 +1,11 @@
+--- a/tests_e2e.py
++++ b/tests_e2e.py
+@@ -51,7 +51,7 @@
+             card_titles.append(await h4.inner_text())
+         print(f"  Generated Pasta special titles: {card_titles}")
+         
+-        has_pasta = any(k in " ".join(card_titles).lower() for k in ["tagliolini", "ravioles", "noodles", "orzo", "pappardelle", "mac and cheese", "pasta", "gnocchi"])
++        has_pasta = any(k in " ".join(card_titles).lower() for k in ["tagliolini", "ravioles", "noodles", "orzo", "pappardelle", "mac and cheese", "pasta", "gnocchi", "hilopites"])
+         assert has_pasta, f"Pasta dishes should contain pasta keywords: {card_titles}"
+         print("✓ Pasta category filter successfully produces authentic pasta/noodle specials.")
+ 

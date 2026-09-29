@@ -1,10 +1,18 @@
 import asyncio
 import os
 import sys
+from pathlib import Path
 from playwright.async_api import async_playwright
 
-REPO_DIR = "/Users/laredjchehrouri/.gemini/antigravity/scratch/chef-specials-ai-repo"
-INDEX_HTML = f"file://{REPO_DIR}/index.html"
+_default_dir = Path(__file__).resolve().parent
+_env_dir = os.environ.get("REPO_DIR")
+REPO_DIR = Path(_env_dir).resolve() if _env_dir else _default_dir
+
+_base_url = os.environ.get("BASE_URL") or os.environ.get("APP_URL")
+if not _base_url and not (REPO_DIR / "index.html").exists():
+    raise FileNotFoundError(f"index.html not found in repository root: {REPO_DIR}")
+
+INDEX_HTML = _base_url or (REPO_DIR / "index.html").as_uri()
 
 async def run_tests():
     print("=== STARTING PLAYWRIGHT E2E VERIFICATION ===")
@@ -44,7 +52,7 @@ async def run_tests():
             card_titles.append(await h4.inner_text())
         print(f"  Generated Pasta special titles: {card_titles}")
         
-        has_pasta = any(k in " ".join(card_titles).lower() for k in ["tagliolini", "ravioles", "noodles", "orzo", "pappardelle", "mac and cheese", "pasta", "gnocchi"])
+        has_pasta = any(k in " ".join(card_titles).lower() for k in ["tagliolini", "ravioles", "noodles", "orzo", "pappardelle", "mac and cheese", "pasta", "gnocchi", "hilopites"])
         assert has_pasta, f"Pasta dishes should contain pasta keywords: {card_titles}"
         print("✓ Pasta category filter successfully produces authentic pasta/noodle specials.")
 

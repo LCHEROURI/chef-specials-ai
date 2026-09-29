@@ -1,0 +1,20 @@
+--- a/tests_e2e.py
++++ b/tests_e2e.py
+@@ -8,10 +8,13 @@
+ _env_dir = os.environ.get("REPO_DIR")
+ REPO_DIR = Path(_env_dir).resolve() if _env_dir else _default_dir
+ 
+-if not (REPO_DIR / "index.html").exists():
+-    raise FileNotFoundError(f"index.html not found in repository root: {REPO_DIR}")
+-
+-INDEX_HTML = os.environ.get("BASE_URL") or os.environ.get("APP_URL") or (REPO_DIR / "index.html").as_uri()
++_remote_url = (os.environ.get("BASE_URL") or os.environ.get("APP_URL") or "").strip()
++if _remote_url:
++    INDEX_HTML = _remote_url
++else:
++    if not (REPO_DIR / "index.html").exists():
++        raise FileNotFoundError(f"index.html not found in repository root: {REPO_DIR}")
++    INDEX_HTML = (REPO_DIR / "index.html").as_uri()
+ 
+ async def run_tests():
+     print("=== STARTING PLAYWRIGHT E2E VERIFICATION ===")

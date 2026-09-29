@@ -1,1 +1,6 @@
 .vercel
+node_modules/
+__pycache__/
+e2e_tests/__pycache__/
+*.pyc
+*.pyo

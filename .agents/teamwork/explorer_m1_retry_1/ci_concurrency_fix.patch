@@ -1,0 +1,11 @@
+--- .github/workflows/ci.yml
++++ .github/workflows/ci.yml
+@@ -9,7 +9,7 @@
+ 
+ concurrency:
+   group: ci-${{ github.workflow }}-${{ github.ref }}
+-  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
++  cancel-in-progress: true
+ 
+ permissions:
+   contents: read
