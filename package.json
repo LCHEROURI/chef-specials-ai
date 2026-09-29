@@ -1,0 +1,18 @@
+{
+  "name": "chef-specials-ai",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Upscale dinner specials, chef-ready recipe details, social captions, and dish photo generator.",
+  "scripts": {
+    "test": "node tests_api.js && ./scripts/verify-bootstrap.sh"
+  },
+  "keywords": [
+    "restaurant",
+    "menu",
+    "chef",
+    "specials",
+    "ai"
+  ],
+  "author": "LCHEROURI",
+  "license": "MIT"
+}

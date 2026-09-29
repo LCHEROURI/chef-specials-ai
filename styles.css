@@ -735,8 +735,10 @@ textarea:focus {
   .sidebar,
   .topbar,
   .generator-grid,
-  .recipe-actions {
-    display: none;
+  .recipe-actions,
+  .marketing-kit,
+  .prompt-fallback {
+    display: none !important;
   }
 
   .app-shell,
