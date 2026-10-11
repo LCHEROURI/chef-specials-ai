@@ -573,17 +573,60 @@ function renderCuisineChoices() {
   `).join("");
 }
 
-function generateSpecials() {
-  const request = chefRequest.value.toLowerCase();
-  const count = getRequestedCount(request);
-  const usedNames = new Set();
-  generationCounter += 1;
+function isRenderableSpecial(special) {
+  return Boolean(
+    special &&
+    typeof special.name === "string" && special.name.trim() &&
+    typeof special.caption === "string" &&
+    Array.isArray(special.ingredients) && special.ingredients.length &&
+    Number.isFinite(Number(special.cost)) &&
+    Number.isFinite(Number(special.price))
+  );
+}
 
-  currentSpecials = Array.from({ length: count }, () => {
-    const special = buildGeneratedSpecial(selectedCuisine, request, usedNames);
-    usedNames.add(special.name);
-    return special;
-  }).map((special, index) => ({
+async function fetchAiSpecials(cuisine, brief, count) {
+  // The serverless endpoint only exists when the app is served over HTTP(S);
+  // opened as a local file, the local template engine is the whole generator.
+  if (!/^https?:$/.test(window.location.protocol)) return null;
+  try {
+    const response = await fetch("/api/generate-specials", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ cuisine, brief, count })
+    });
+    const payload = await response.json().catch(() => ({}));
+    if (!response.ok || payload.setupNeeded || !Array.isArray(payload.specials)) return null;
+    const specials = payload.specials.filter(isRenderableSpecial).slice(0, count);
+    return specials.length ? specials : null;
+  } catch (error) {
+    return null;
+  }
+}
+
+async function generateSpecials() {
+  const brief = chefRequest.value;
+  const request = brief.toLowerCase();
+  const count = getRequestedCount(request);
+  generationCounter += 1;
+  const runId = generationCounter;
+
+  // Real AI generation first (OpenRouter via /api/generate-specials); any
+  // failure quietly falls back to the local template engine so the board
+  // is never empty.
+  const aiSpecials = await fetchAiSpecials(selectedCuisine, brief, count);
+  if (runId !== generationCounter) return; // A newer generation superseded this one.
+
+  let baseSpecials = aiSpecials;
+  if (!baseSpecials) {
+    const usedNames = new Set();
+    baseSpecials = Array.from({ length: count }, () => {
+      const special = buildGeneratedSpecial(selectedCuisine, request, usedNames);
+      usedNames.add(special.name);
+      return special;
+    });
+  }
+
+  currentSpecials = baseSpecials.map((special, index) => ({
     ...special,
     id: `${selectedCuisine}-${Date.now()}-${generationCounter}-${index}`,
     cuisine: selectedCuisine,
