@@ -59,11 +59,17 @@ jobs:
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
 
+      - name: Normalize Vercel identifiers
+        env:
+          RAW_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          RAW_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          echo "VERCEL_ORG_ID=$(printf '%s' "$RAW_ORG_ID" | tr -d '[:space:]')" >> "$GITHUB_ENV"
+          echo "VERCEL_PROJECT_ID=$(printf '%s' "$RAW_PROJECT_ID" | tr -d '[:space:]')" >> "$GITHUB_ENV"
+
       - name: Pull Vercel environment (preview)
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Build project artifacts (preview)
@@ -76,7 +82,10 @@ jobs:
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
-          PREVIEW_URL=$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }} 2>&1 | tail -1)
+          DEPLOY_OUTPUT=$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})
+          echo "$DEPLOY_OUTPUT"
+          PREVIEW_URL=$(printf '%s\n' "$DEPLOY_OUTPUT" | grep -oE 'https://[^[:space:]]+\.vercel\.app' | tail -1)
+          test -n "$PREVIEW_URL"
           echo "preview_url=$PREVIEW_URL" >> $GITHUB_OUTPUT
           echo "Preview deployed: $PREVIEW_URL"
 
@@ -107,11 +116,17 @@ jobs:
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
 
+      - name: Normalize Vercel identifiers
+        env:
+          RAW_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          RAW_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          echo "VERCEL_ORG_ID=$(printf '%s' "$RAW_ORG_ID" | tr -d '[:space:]')" >> "$GITHUB_ENV"
+          echo "VERCEL_PROJECT_ID=$(printf '%s' "$RAW_PROJECT_ID" | tr -d '[:space:]')" >> "$GITHUB_ENV"
+
       - name: Pull Vercel environment (production)
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Build project artifacts (production)
@@ -124,7 +139,10 @@ jobs:
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
-          PROD_URL=$(vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }} 2>&1 | tail -1)
+          DEPLOY_OUTPUT=$(vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }})
+          echo "$DEPLOY_OUTPUT"
+          PROD_URL=$(printf '%s\n' "$DEPLOY_OUTPUT" | grep -oE 'https://[^[:space:]]+\.vercel\.app' | tail -1)
+          test -n "$PROD_URL"
           echo "production_url=$PROD_URL" >> $GITHUB_OUTPUT
           echo "Production deployed: $PROD_URL"
 
