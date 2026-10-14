@@ -42,10 +42,13 @@ try {
 
 const TIMEOUT_MS = parseInt(_cliArgs.values?.timeout, 10) > 0
   ? parseInt(_cliArgs.values.timeout, 10)
-  : 15000;
+  : 30000;
+// Default to 4 retries: a fresh Vercel deployment can take a few seconds to
+// warm up, which made the CI smoke test fail on healthy deploys.
 const MAX_RETRIES = parseInt(_cliArgs.values?.retries, 10) >= 0
   ? parseInt(_cliArgs.values.retries, 10)
-  : 0;
+  : 4;
+const RETRY_DELAY_MS = 10000;
 const MAX_REDIRECTS = 3;
 
 // ─────────────────────────────────────────────────────────────────
@@ -375,8 +378,8 @@ async function main() {
     log("       node scripts/smoke-test.js https://... --timeout=20000 --retries=2");
     log("");
     log("Options:");
-    log("  --timeout=<ms>    Request timeout in milliseconds (default: 15000)");
-    log("  --retries=<n>     Number of retry attempts per check (default: 0)");
+    log("  --timeout=<ms>    Request timeout in milliseconds (default: 30000)");
+    log("  --retries=<n>     Number of retry attempts per check (default: 4)");
     log("  -h, --help        Show this help message");
     log("");
     log("Exit codes:");
@@ -409,12 +412,20 @@ async function main() {
   log(`Time:   ${new Date().toISOString()}`);
   log("------------------------------------------------------------");
 
-  const results = await Promise.allSettled([
+  const runChecks = () => Promise.allSettled([
     checkHomePage(baseUrl),
     checkStaticAssets(baseUrl),
     checkApiEndpoint(baseUrl),
     checkSecurityHeaders(baseUrl),
   ]);
+  const isFailure = (r) => r.status === "rejected" || r.value === false;
+
+  let results = await runChecks();
+  for (let attempt = 1; attempt <= MAX_RETRIES && results.some(isFailure); attempt++) {
+    info(`Some checks failed; retrying in ${RETRY_DELAY_MS / 1000}s (attempt ${attempt} of ${MAX_RETRIES})`);
+    await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS));
+    results = await runChecks();
+  }
 
   log("------------------------------------------------------------");
 
