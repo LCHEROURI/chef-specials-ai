@@ -244,7 +244,7 @@ async function runSpecialsApiTests() {
     await specialsHandler(okReq, okRes);
     assert.strictEqual(okRes.statusCode, 200);
     assert.strictEqual(okRes.body.source, "openrouter");
-    assert.strictEqual(okRes.body.model, "openai/gpt-4o-mini");
+    assert.strictEqual(okRes.body.model, "openai/gpt-6-luna");
     assert.strictEqual(okRes.body.specials.length, 2);
     const [first, second] = okRes.body.specials;
     assert.strictEqual(first.name, "Charred Octopus with Nduja Butter");
@@ -259,7 +259,7 @@ async function runSpecialsApiTests() {
     assert.strictEqual(capturedUrl, "https://openrouter.ai/api/v1/chat/completions");
     assert.strictEqual(capturedOptions.headers.Authorization, "Bearer sk-or-test-mock-key");
     const sentPayload = JSON.parse(capturedOptions.body);
-    assert.strictEqual(sentPayload.model, "openai/gpt-4o-mini");
+    assert.strictEqual(sentPayload.model, "openai/gpt-6-luna");
     assert.strictEqual(sentPayload.response_format.type, "json_object");
     assert(sentPayload.messages[1].content.includes("Create 2 original Italian dinner specials"));
     console.log("✓ OpenRouter response parsed into the exact UI special shape.");
