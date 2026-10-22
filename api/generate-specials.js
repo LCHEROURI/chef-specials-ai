@@ -1,4 +1,4 @@
-const OPENROUTER_MODEL = process.env.OPENROUTER_MODEL || "openai/gpt-4o-mini";
+const OPENROUTER_MODEL = process.env.OPENROUTER_MODEL || "openai/gpt-6-luna";
 const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
 const KNOWN_CUISINES = ["Greek", "French", "American", "Chinese", "Italian"];
 const DEFAULT_CUISINE = "Greek";
